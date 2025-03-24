@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include<string>
+#include<array>
 
 #include "Prs_run.h"
 #include "Vlr_ins.h"
@@ -22,25 +23,39 @@ void inicializar_ran(){
  *  */
 const int cant_dir = 5;
 
-string avalaible_address[](){
+std::array<string,5> avalaible_address(){
 
     /**
      * @brief arreglo con las posiciones de memoria
      * disponibles
      */
-    std::string aval_addr[10] = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
+    std::array<string,10> disponibles= {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
     /**
      * @brief Posiciones de memoria
      * seleccionadas para usar
      */
-    std::string addr_mem[cant_dir]{};
+    std::array<string,5> usadas; //array with length 5
+
+
+    int lmt = usadas.size();
+    
+
+    // for (int i = 0; i < lmt; i++)
+    // {
+    //     int aleatorio = rand() % lmt;
+    //     cout<<to_string(aleatorio)<<endl;
+    // }
 
 
 
 
 
 
-    return fin_mem[5];
+
+
+    cout<<" aqui voy "<<endl;
+
+    return usadas;
 }
 
 
@@ -51,6 +66,8 @@ string avalaible_address[](){
 int main(){
 
     inicializar_ran();
+
+    avalaible_address();
     
 
     Prs_run *pr;
