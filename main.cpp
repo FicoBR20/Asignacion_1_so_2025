@@ -20,6 +20,7 @@ void inicializar_ran(){
 /**
  * @brief total de posiciones de memoria
  * que se usaran del total de disponibles
+ * Debe ser <= 10
  *  */
 const int cant_dir = 5;
 
@@ -34,26 +35,42 @@ std::array<string,5> avalaible_address(){
      * @brief Posiciones de memoria
      * seleccionadas para usar
      */
-    std::array<string,5> usadas; //array with length 5
+    std::array<string,cant_dir> usadas = {"cahondo", "roch", "pujs", "dfus", "fse"}; //array with length 5
 
 
     int lmt = usadas.size();
+
+    while (lmt<6)
+    {
+        int temp; // recepciona int random
+
+        for (int i = 0; i < lmt; i++)
+       {
+           int aleatorio = rand() % disponibles.size();
+           usadas.at(i)=disponibles.at(aleatorio);
+           disponibles.at(aleatorio)="BAD";
+
+           cout<<"Posiciones seleccionadas" + to_string(aleatorio)<<endl;
+       }
+
+
+        cout<<"voy sumando bien"<<endl;
+        lmt ++;
+    }
     
 
-    // for (int i = 0; i < lmt; i++)
-    // {
-    //     int aleatorio = rand() % lmt;
-    //     cout<<to_string(aleatorio)<<endl;
-    // }
-
-
-
-
-
-
-
-
     cout<<" aqui voy "<<endl;
+
+    for (string mem : usadas)
+    {
+        cout<<"Las que se van a usar " + mem <<endl;
+    }
+
+    for (string mem : disponibles)
+    {
+        cout<<"Como quedan las disponibles " + mem <<endl;
+    }
+    
 
     return usadas;
 }
@@ -81,11 +98,11 @@ int main(){
     int limite = 100;
 
     
-    for (int i = 0; i < 6; i++)
-    {
-        int aleatorio = rand() % limite;
-        cout<<to_string(aleatorio)<<endl;
-    }
+    // for (int i = 0; i < 6; i++)
+    // {
+    //     int aleatorio = rand() % limite;
+    //     cout<<to_string(aleatorio)<<endl;
+    // }
     
 
     cout<<"hola cpp, imprimo el nombre del objeto Prs_run " + pr->get_name_prs()<<endl;
