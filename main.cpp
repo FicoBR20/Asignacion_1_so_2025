@@ -4,6 +4,7 @@
 #include <ctime>
 #include<string>
 #include<array>
+#include<vector>
 
 #include "Prs_run.h"
 #include "Vlr_ins.h"
@@ -17,13 +18,59 @@ void inicializar_ran(){
     srand(time(NULL));
 }
 
+
+/**
+ * @brief Entrega un numero entero aleatorio
+ * en el rango [0;lim]
+ * @param lim 
+ * @return int 
+ */
+int termino_alea(int lim){
+
+    int aleato = rand() % lim;
+
+    cout<<"soy aleato "<<to_string(aleato)<<endl;
+
+    return aleato;
+
+}
+
+bool esta_dentro(int buscado,std::vector<int>listanumerica){
+
+    bool existe = false;
+
+
+    for (int x : listanumerica)
+    {
+        if (buscado==x) 
+        {
+            existe=true;
+            cout<<" si esta dentro " + to_string(existe)<<endl;
+            return existe;
+        }
+        
+    }
+    cout<<" No esta dentro " + to_string(existe)<<endl;
+
+    return existe;
+    
+}
+
+
+
+
 /**
  * @brief total de posiciones de memoria
  * que se usaran del total de disponibles
  * Debe ser <= 10
  *  */
 const int cant_dir = 5;
-
+/**
+ * @brief funcion que selecciona aleatoriamente
+ * 5 posiciones de memoria de las disponibles
+ * 
+ * @return std::array<string,5> 
+ */
 std::array<string,5> avalaible_address(){
 
     /**
@@ -85,6 +132,17 @@ int main(){
     inicializar_ran();
 
     avalaible_address();
+
+    termino_alea(5);
+
+    std::vector<int>listan = {1,2,3,4};
+
+    bool indica = esta_dentro(9, listan);
+
+    cout<<"indica es: " + to_string(indica)<<endl;
+
+
+
     
 
     Prs_run *pr;
@@ -97,13 +155,6 @@ int main(){
     
     int limite = 100;
 
-    
-    // for (int i = 0; i < 6; i++)
-    // {
-    //     int aleatorio = rand() % limite;
-    //     cout<<to_string(aleatorio)<<endl;
-    // }
-    
 
     cout<<"hola cpp, imprimo el nombre del objeto Prs_run " + pr->get_name_prs()<<endl;
     cout<<"hola cpp, imprimo el valor del objeto Vlr_ins " + to_string(vi->get_valor())<<endl;
