@@ -149,28 +149,13 @@ std::vector<string> avalaible_address(){
 
 
 int main(){
-
+    
     inicializar_ran();
-
-    avalaible_address();
-
-    termino_alea(5);
-
 
     vector<string>listan = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
 
-    bool indica = esta_dentro("D5", listan);
-
-    cout<<"indica es: " + to_string(indica)<<endl;
-
-    bool indica2 = esta_dentro("HS", listan);
+    avalaible_address();
         
-    cout<<"indica2 es: " + to_string(indica2)<<endl;
-
-
-
-    
-
     Prs_run *pr;
     pr = new Prs_run();
     pr->set_name_prs("prueba");
