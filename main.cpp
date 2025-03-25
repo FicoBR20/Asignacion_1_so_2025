@@ -37,7 +37,7 @@ int termino_alea(int lim){
 
 bool esta_dentro(int buscado,std::vector<int>listanumerica){
 
-    bool existe;
+    bool existe = false;
 
 
     for (int x : listanumerica)
@@ -45,17 +45,16 @@ bool esta_dentro(int buscado,std::vector<int>listanumerica){
         if (buscado==x) 
         {
             existe=true;
-            cout<<" si esta dentro " + existe<<endl;
+            cout<<" si esta dentro " + to_string(existe)<<endl;
             return existe;
         }
         
     }
-    cout<<"...NO esta dentro ...." + existe <<endl;
+    cout<<" No esta dentro " + to_string(existe)<<endl;
+
     return existe;
     
 }
-
-
 
 
 
@@ -138,9 +137,10 @@ int main(){
 
     std::vector<int>listan = {1,2,3,4};
 
-    esta_dentro(2, listan);
-    esta_dentro(4,listan);
-    esta_dentro(6,listan);
+    bool indica = esta_dentro(9, listan);
+
+    cout<<"indica es: " + to_string(indica)<<endl;
+
 
 
     
