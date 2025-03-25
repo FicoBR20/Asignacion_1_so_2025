@@ -18,6 +18,12 @@ void inicializar_ran(){
     srand(time(NULL));
 }
 
+/**
+ * @brief total de posiciones de memoria
+ * que se usaran del total de disponibles
+ * Debe ser <= 10
+ *  */
+const int cant_dir = 5;
 
 /**
  * @brief Entrega un numero entero aleatorio
@@ -35,89 +41,104 @@ int termino_alea(int lim){
 
 }
 
-bool esta_dentro(int buscado,std::vector<int>listanumerica){
 
+/**
+ * @brief Funcion que informa si un string
+ * se encuentra dentro de un vector de strings
+ * 
+ * @param buscado 
+ * @param my_num 
+ * @return true 
+ * @return false 
+ */
+bool esta_dentro(string buscado, vector <string> my_num){
+    
     bool existe = false;
 
-
-    for (int x : listanumerica)
+    for (string dentro : my_num)
     {
-        if (buscado==x) 
+        if (dentro == buscado)
         {
-            existe=true;
-            cout<<" si esta dentro " + to_string(existe)<<endl;
-            return existe;
+            existe = true;
         }
         
     }
-    cout<<" No esta dentro " + to_string(existe)<<endl;
-
     return existe;
     
 }
 
 
-
-
 /**
- * @brief total de posiciones de memoria
- * que se usaran del total de disponibles
- * Debe ser <= 10
- *  */
-const int cant_dir = 5;
-/**
- * @brief funcion que selecciona aleatoriamente
- * 5 posiciones de memoria de las disponibles
+ * @brief Funcion que entrega un vector de string el cual
+ * contiene las "direcciones de memoria" que se usaran, tomadas
+ * del las direcciones disponibles
  * 
- * @return std::array<string,5> 
+ * @return std::vector<string> 
  */
-std::array<string,5> avalaible_address(){
+std::vector<string> avalaible_address(){
 
     /**
-     * @brief arreglo con las posiciones de memoria
+     * @brief vector con las direcciones de memoria
      * disponibles
      */
-    std::array<string,10> disponibles= {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
+    std::vector<string> disponibles= {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
     /**
-     * @brief Posiciones de memoria
+     * @brief vector que contendra las posiciones de memoria
      * seleccionadas para usar
      */
-    std::array<string,cant_dir> usadas = {"cahondo", "roch", "pujs", "dfus", "fse"}; //array with length 5
+    std::vector<string> usadas;
 
+    /**
+     * @brief varible auxilidar para el ciclo
+     * toma el mismo valor del total de las posiciones
+     * de memoria a usar
+     *
+     */
+    int limite_memoria = cant_dir;
 
-    int lmt = usadas.size();
+    /**
+     * @brief variable receptora
+     * para uso en el ciclo
+     * 
+     */
+    string receptor = "";
 
-    while (lmt<6)
+    // ciclo
+
+    /**
+     * @brief Ciclo que configura el contenido
+     * final con las direcciones de memoria a usar
+     * 
+     */
+    for (int i = 0; i < limite_memoria; i++)
     {
-        int temp; // recepciona int random
+        int sel_dir = termino_alea(disponibles.size());
 
-        for (int i = 0; i < lmt; i++)
-       {
-           int aleatorio = rand() % disponibles.size();
-           usadas.at(i)=disponibles.at(aleatorio);
-           disponibles.at(aleatorio)="BAD";
+        receptor = disponibles.at(sel_dir);
 
-           cout<<"Posiciones seleccionadas" + to_string(aleatorio)<<endl;
-       }
+        if (esta_dentro(receptor,usadas))
+        {
+            usadas.clear();
+            cout<<"...borrada..usadas.."<<endl;
+            avalaible_address();
+        }
+        else
+        {
+            usadas.push_back(receptor);
+        }
 
-
-        cout<<"voy sumando bien"<<endl;
-        lmt ++;
     }
-    
 
-    cout<<" aqui voy "<<endl;
 
+    /**
+     * @brief ciclo para verificacion del proceso
+     * 
+     * @param usadas 
+     */
     for (string mem : usadas)
     {
-        cout<<"Las que se van a usar " + mem <<endl;
+        cout<<"Las que QUEDAN y se van a usar " + mem <<endl;
     }
-
-    for (string mem : disponibles)
-    {
-        cout<<"Como quedan las disponibles " + mem <<endl;
-    }
-    
 
     return usadas;
 }
@@ -128,23 +149,13 @@ std::array<string,5> avalaible_address(){
 
 
 int main(){
-
+    
     inicializar_ran();
 
+    vector<string>listan = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
+
     avalaible_address();
-
-    termino_alea(5);
-
-    std::vector<int>listan = {1,2,3,4};
-
-    bool indica = esta_dentro(9, listan);
-
-    cout<<"indica es: " + to_string(indica)<<endl;
-
-
-
-    
-
+        
     Prs_run *pr;
     pr = new Prs_run();
     pr->set_name_prs("prueba");
