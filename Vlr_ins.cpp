@@ -18,11 +18,15 @@ Vlr_ins::~Vlr_ins(){
 }
 
 void Vlr_ins::set_name_vi(string sr){
-    name_reg = sr;
+    name_reg = "SET";
 }
 
-void Vlr_ins::set_ubm(string ubc){
-    ubi_memoria = ubc;
+void Vlr_ins::set_ubm(){
+
+    int dir_select = rand() % 5;
+
+
+    ubi_memoria = "c2";
 }
 
 void Vlr_ins::set_vlr(int vl){
@@ -36,6 +40,7 @@ void Vlr_ins::set_cp1(){
 void Vlr_ins::set_cp2(){
     campo2 = "NULL";
 }
+
 
 string Vlr_ins::get_name_reg(){
     return name_reg;
@@ -56,6 +61,8 @@ string Vlr_ins::get_cam1(){
 string Vlr_ins::get_cam2(){
     return campo2;
 }
+
+
 
 
 

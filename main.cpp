@@ -10,6 +10,10 @@
 #include "Vlr_ins.h"
 
 using namespace std;
+
+
+
+
 /**
  * @brief inicia gestor random
  * 
