@@ -8,6 +8,7 @@
 
 #include "Prs_run.h"
 #include "Vlr_ins.h"
+#include "Motor.h"
 
 using namespace std;
 
@@ -22,130 +23,132 @@ void inicializar_ran(){
     srand(time(NULL));
 }
 
-/**
- * @brief total de posiciones de memoria
- * que se usaran del total de disponibles
- * Debe ser <= 10
- *  */
-const int cant_dir = 5;
-
-/**
- * @brief Entrega un numero entero aleatorio
- * en el rango [0;lim]
- * @param lim 
- * @return int 
- */
-int termino_alea(int lim){
-
-    int aleato = rand() % lim;
-
-    cout<<"soy aleato "<<to_string(aleato)<<endl;
-
-    return aleato;
-
-}
 
 
-/**
- * @brief Funcion que informa si un string
- * se encuentra dentro de un vector de strings
- * 
- * @param buscado 
- * @param my_num 
- * @return true 
- * @return false 
- */
-bool esta_dentro(string buscado, vector <string> my_num){
+// /**
+//  * @brief total de posiciones de memoria
+//  * que se usaran del total de disponibles
+//  * Debe ser <= 10
+//  *  */
+// const int cant_dir = 5;
+
+// /**
+//  * @brief Entrega un numero entero aleatorio
+//  * en el rango [0;lim]
+//  * @param lim 
+//  * @return int 
+//  */
+// int termino_alea(int lim){
+
+//     int aleato = rand() % lim;
+
+//     cout<<"soy aleato "<<to_string(aleato)<<endl;
+
+//     return aleato;
+
+// }
+
+
+// /**
+//  * @brief Funcion que informa si un string
+//  * se encuentra dentro de un vector de strings
+//  * 
+//  * @param buscado 
+//  * @param my_num 
+//  * @return true 
+//  * @return false 
+//  */
+// bool esta_dentro(string buscado, vector <string> my_num){
     
-    bool existe = false;
+//     bool existe = false;
 
-    for (string dentro : my_num)
-    {
-        if (dentro == buscado)
-        {
-            existe = true;
-        }
+//     for (string dentro : my_num)
+//     {
+//         if (dentro == buscado)
+//         {
+//             existe = true;
+//         }
         
-    }
-    return existe;
+//     }
+//     return existe;
     
-}
+// }
 
 
-/**
- * @brief Funcion que entrega un vector de string el cual
- * contiene las "direcciones de memoria" que se usaran, tomadas
- * del las direcciones disponibles
- * 
- * @return std::vector<string> 
- */
-std::vector<string> avalaible_address(){
+// /**
+//  * @brief Funcion que entrega un vector de string el cual
+//  * contiene las "direcciones de memoria" que se usaran, tomadas
+//  * del las direcciones disponibles
+//  * 
+//  * @return std::vector<string> 
+//  */
+// std::vector<string> avalaible_address(){
 
-    /**
-     * @brief vector con las direcciones de memoria
-     * disponibles
-     */
-    std::vector<string> disponibles= {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
-    /**
-     * @brief vector que contendra las posiciones de memoria
-     * seleccionadas para usar
-     */
-    std::vector<string> usadas;
+//     /**
+//      * @brief vector con las direcciones de memoria
+//      * disponibles
+//      */
+//     std::vector<string> disponibles= {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
+//     /**
+//      * @brief vector que contendra las posiciones de memoria
+//      * seleccionadas para usar
+//      */
+//     std::vector<string> usadas;
 
-    /**
-     * @brief varible auxilidar para el ciclo
-     * toma el mismo valor del total de las posiciones
-     * de memoria a usar
-     *
-     */
-    int limite_memoria = cant_dir;
+//     /**
+//      * @brief varible auxilidar para el ciclo
+//      * toma el mismo valor del total de las posiciones
+//      * de memoria a usar
+//      *
+//      */
+//     int limite_memoria = cant_dir;
 
-    /**
-     * @brief variable receptora
-     * para uso en el ciclo
-     * 
-     */
-    string receptor = "";
+//     /**
+//      * @brief variable receptora
+//      * para uso en el ciclo
+//      * 
+//      */
+//     string receptor = "";
 
-    // ciclo
+//     // ciclo
 
-    /**
-     * @brief Ciclo que configura el contenido
-     * final con las direcciones de memoria a usar
-     * 
-     */
-    for (int i = 0; i < limite_memoria; i++)
-    {
-        int sel_dir = termino_alea(disponibles.size());
+//     /**
+//      * @brief Ciclo que configura el contenido
+//      * final con las direcciones de memoria a usar
+//      * 
+//      */
+//     for (int i = 0; i < limite_memoria; i++)
+//     {
+//         int sel_dir = termino_alea(disponibles.size());
 
-        receptor = disponibles.at(sel_dir);
+//         receptor = disponibles.at(sel_dir);
 
-        if (esta_dentro(receptor,usadas))
-        {
-            usadas.clear();
-            cout<<"...borrada..usadas.."<<endl;
-            avalaible_address();
-        }
-        else
-        {
-            usadas.push_back(receptor);
-        }
+//         if (esta_dentro(receptor,usadas))
+//         {
+//             usadas.clear();
+//             cout<<"...borrada..usadas.."<<endl;
+//             avalaible_address();
+//         }
+//         else
+//         {
+//             usadas.push_back(receptor);
+//         }
 
-    }
+//     }
 
 
-    /**
-     * @brief ciclo para verificacion del proceso
-     * 
-     * @param usadas 
-     */
-    for (string mem : usadas)
-    {
-        cout<<"Las que QUEDAN y se van a usar " + mem <<endl;
-    }
+//     /**
+//      * @brief ciclo para verificacion del proceso
+//      * 
+//      * @param usadas 
+//      */
+//     for (string mem : usadas)
+//     {
+//         cout<<"Las que QUEDAN y se van a usar " + mem <<endl;
+//     }
 
-    return usadas;
-}
+//     return usadas;
+// }
 
 
 
@@ -158,8 +161,10 @@ int main(){
 
     vector<string>listan = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
 
-    avalaible_address();
-        
+    Motor mt;
+
+    mt.avalaible_address();
+    
     Prs_run *pr;
     pr = new Prs_run();
     pr->set_name_prs("prueba");
