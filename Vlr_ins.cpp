@@ -24,12 +24,13 @@ void Vlr_ins::set_name_vi(){
 void Vlr_ins::set_ubm(std::vector<std::string> lm){
 
     int dir_select = rand() % lm.size();
-
+    
     ubi_memoria = lm.at(dir_select);
 }
 
-void Vlr_ins::set_vlr(int vl){
-    info_valor = vl;
+void Vlr_ins::set_vlr(){
+    int val = rand() % 100;
+    info_valor = val;
 }
 
 void Vlr_ins::set_cp1(){

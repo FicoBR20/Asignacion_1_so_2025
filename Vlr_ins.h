@@ -29,7 +29,7 @@ class Vlr_ins{
 
         void set_name_vi();
         void set_ubm(std::vector<std::string> ubi);
-        void set_vlr(int vl);
+        void set_vlr();                             // valor entre [1 : 100]
         void set_cp1();                             // default NULL
         void set_cp2();                             // default NULL
         string get_name_reg();

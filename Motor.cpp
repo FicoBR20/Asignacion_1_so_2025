@@ -3,6 +3,7 @@
 Motor::Motor()
 {
 
+
 }
 
 Motor::~Motor()
@@ -143,6 +144,14 @@ std::vector<std::string> Motor::get_aval_address(){
 }
 
 
+/// PROCESO FINAL
+
+
+std::vector<std::string> instrucciones_ready;
+
+std::vector<std::string> address_ready;
+
+
 
 
 
@@ -150,13 +159,15 @@ std::vector<std::string> Motor::get_aval_address(){
  * @brief crear una instruccin de tipo SET
  * 
  */
-// Vlr_ins create_set(){
-//     Vlr_ins vset;
-//     vset.set_name_vi();
-//     int val = rand() % 100;
-//     vset.set_vlr(78);
-//     vset.set_ubm();
+Vlr_ins Motor::create_set(){
+    Vlr_ins vset;
+    vset.set_name_vi();
+    vset.set_vlr();
+    vset.set_ubm(get_aval_address());
+    vset.set_cp1();
+    vset.set_cp2();
+    vset.mostrar_set();
 
-//     return vset;
+    return vset;
 
-// }
+}

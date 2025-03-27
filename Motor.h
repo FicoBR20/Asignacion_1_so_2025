@@ -3,7 +3,7 @@
 
 #include "Vlr_ins.h"
 #include "Prs_run.h"
-#include<vector>
+#include <vector>
 
 #pragma once
 
@@ -24,7 +24,7 @@ public:
     void set_aval_address();                     // define las posiciones de memoria a usar.
     std::vector<std::string> get_instructios();       // retorna el conjunto de nombres de las instrucciones a usar. (i.e "LDR", "ADD"...etc )
     std::vector<string> get_aval_address();       // retorna el conjunto de direcciones de memoria a usar. (i.e "D1", "D2" ..etc, toma 5 de 10 disponibles)
-    
+    Vlr_ins create_set();                           // crea una instruccion SET
 
     
     
