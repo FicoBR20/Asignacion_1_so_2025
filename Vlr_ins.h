@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<string>
+#include<vector>
 
 using namespace std;
 
@@ -26,8 +27,8 @@ class Vlr_ins{
         Vlr_ins();
         ~Vlr_ins();
 
-        void set_name_vi(string sr);
-        void set_ubm();
+        void set_name_vi();
+        void set_ubm(std::vector<std::string> ubi);
         void set_vlr(int vl);
         void set_cp1();                             // default NULL
         void set_cp2();                             // default NULL
@@ -36,6 +37,8 @@ class Vlr_ins{
         int get_valor();
         string get_cam1();
         string get_cam2();
+
+        void mostrar_set();
 
 
 };

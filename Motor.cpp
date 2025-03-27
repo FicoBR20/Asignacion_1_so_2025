@@ -12,22 +12,14 @@ Motor::~Motor()
 
 const int Motor::CANT_DIR=5;
 
-/**
- * @brief Configuracion del contenido para el vector
- * de los nombres de las instrucciones
- * @return std::vector 
- */
-std::vector<string> Motor::set_Vect_intr(){
+void Motor::set_instructions(){
 
-    instru = {"LDR", "ADD", "INC", "DEC", "STR", "SHW", "PAUSE", "END"};
+    the_instructions = {"LDR", "ADD", "INC", "DEC", "STR", "SHW", "PAUSE", "END"};
 
-    return instru;
 }
 
-
-
 /**
- * @brief Entrega un numero entero aleatorio
+ * @brief Funcion auxiliar que entrega un numero entero aleatorio
  * en el rango [0;lmt]
  * @param lmt 
  * @return int 
@@ -40,7 +32,7 @@ int number_aleat(int lmt){
 }
 
 /**
- * @brief Funcion que informa si un string
+ * @brief Funcion booleana auxiliar que determina si un string
  * se encuentra dentro de un vector de strings
  * 
  * @param buscado 
@@ -71,7 +63,7 @@ bool esta_dentro(string buscado, vector <string> my_num){
  * 
  * @return std::vector<string> 
  */
-std::vector<string> Motor::avalaible_address(){
+void Motor::set_aval_address(){
 
     /**
      * @brief vector con las direcciones de memoria
@@ -116,7 +108,7 @@ std::vector<string> Motor::avalaible_address(){
         {
             usadas.clear();
             cout<<"...borrada..usadas.."<<endl;
-            avalaible_address();
+            set_aval_address();
         }
         else
         {
@@ -136,23 +128,35 @@ std::vector<string> Motor::avalaible_address(){
         cout<<"Las que QUEDAN y se van a usar " + mem <<endl;
     }
 
-    my_mfin = usadas;
+    the_aval_address = usadas;
 
-    return my_mfin;
+}
+
+std::vector<std::string> Motor::get_instructios(){
+
+    return the_instructions;
+}
+
+std::vector<std::string> Motor::get_aval_address(){
+
+    return the_aval_address;
 }
 
 
 
 
-// /**
-//  * @brief crear una instruccin de tipo SET
-//  * 
-//  */
-// void Motor::generar_Set(){
+
+/**
+ * @brief crear una instruccin de tipo SET
+ * 
+ */
+// Vlr_ins create_set(){
 //     Vlr_ins vset;
-//     vset.set_name_vi(val);
+//     vset.set_name_vi();
 //     int val = rand() % 100;
-//     vset.set_vlr();
-//     vset.set_ubm()
+//     vset.set_vlr(78);
+//     vset.set_ubm();
+
+//     return vset;
 
 // }

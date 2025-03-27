@@ -159,11 +159,11 @@ int main(){
     
     inicializar_ran();
 
-    vector<string>listan = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
+    std::vector<string>listan = {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
 
     Motor mt;
 
-    mt.avalaible_address();
+    mt.set_aval_address();
     
     Prs_run *pr;
     pr = new Prs_run();
@@ -172,6 +172,9 @@ int main(){
     Vlr_ins *vi;
     vi = new Vlr_ins("SET", "89IPu85", 80, "NULL", "NULL");
     vi->set_vlr(180);
+    vi->set_ubm(listan);
+
+    vi->mostrar_set();
     
     int limite = 100;
 
