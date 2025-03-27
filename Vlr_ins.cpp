@@ -17,20 +17,20 @@ Vlr_ins::~Vlr_ins(){
     cout<<"..destruyendo.."<<endl;
 }
 
-void Vlr_ins::set_name_vi(string sr){
+void Vlr_ins::set_name_vi(){
     name_reg = "SET";
 }
 
-void Vlr_ins::set_ubm(){
+void Vlr_ins::set_ubm(std::vector<std::string> lm){
 
-    int dir_select = rand() % 5;
-
-
-    ubi_memoria = "c2";
+    int dir_select = rand() % lm.size();
+    
+    ubi_memoria = lm.at(dir_select);
 }
 
-void Vlr_ins::set_vlr(int vl){
-    info_valor = vl;
+void Vlr_ins::set_vlr(){
+    int val = rand() % 100;
+    info_valor = val;
 }
 
 void Vlr_ins::set_cp1(){
@@ -40,6 +40,7 @@ void Vlr_ins::set_cp1(){
 void Vlr_ins::set_cp2(){
     campo2 = "NULL";
 }
+
 
 
 string Vlr_ins::get_name_reg(){
@@ -64,5 +65,6 @@ string Vlr_ins::get_cam2(){
 
 
 
-
-
+void Vlr_ins::mostrar_set(){
+    cout<<"El set es: " + get_name_reg() + " " + get_ubi_mem() + " " + to_string(get_valor()) + " " + get_cam1() + " " + get_cam2() <<endl;
+}

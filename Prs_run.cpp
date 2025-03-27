@@ -40,4 +40,3 @@ string Prs_run::get_cp1(){
 string Prs_run::get_cp2(){
     return campo2;
 }
-
