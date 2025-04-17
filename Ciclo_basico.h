@@ -18,29 +18,34 @@ public:
     ~Ciclo_basico();
 
     void set_pc();
-    void set_mar(int ma);
+    void set_mar(string ma);
     void set_acum(int ac);
     void set_alu(int al);
-    void set_icr(M_memory mem);
-    void set_mdr(M_memory muc);
-    void set_un_control(M_memory mkl);
+    void set_icr(M_memory* mem);
+    void set_mdr(M_memory* muc);
+    void set_un_control(M_memory* mkl);
 
     int get_pc();
-    int get_mar();
+    std::string get_mar();
     int get_acum();
     int get_alu();
     std::vector<string> get_icr();
-    std::vector<string> get_mdr();
+    std::vector<string> get_mdr_name_add();
     std::vector<string> get_un_control();
 
 
     string mostrar_vector(vector<string>vs);
     void mostrar_ciclo_basico();
     void set_instrucciones(vector<M_memory*>lm);
+    string get_Set_value(string ddb);             //obtener el valor del Set (3er campo)
+
+
+
+
 
 private:
     int pc;             //contador de programas
-    int mar;            //manejador de memoria
+    std::string mar;            //manejador de memoria
     int acum;           //acumulador
     int alu;            //totalizador
     std::vector<string> icr;        //instruction to process

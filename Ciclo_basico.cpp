@@ -3,7 +3,7 @@
 
 Ciclo_basico::Ciclo_basico(){
     pc=0;
-    mar=0;
+    mar="";
     acum=0;
     alu=0;
     vector<string>icr;
@@ -35,7 +35,7 @@ void Ciclo_basico::set_pc(){
     }
     pc=contd;
 }
-void Ciclo_basico::set_mar(int ma){
+void Ciclo_basico::set_mar(string ma){
     mar=ma;
 }
 void Ciclo_basico::set_acum(int ac){
@@ -44,10 +44,10 @@ void Ciclo_basico::set_acum(int ac){
 void Ciclo_basico::set_alu(int al){
     alu=al;
 }
-void Ciclo_basico::set_icr(M_memory dm){
-    string dato1 = dm.get_mname();
+void Ciclo_basico::set_icr(M_memory* dm){
+    string dato1 = dm->get_mname();
     icr.push_back(dato1);
-    string dato2 = dm.get_dir_adr();
+    string dato2 = dm->get_dir_adr();
     icr.push_back(dato2);
 
 }
@@ -59,17 +59,27 @@ void Ciclo_basico::set_icr(M_memory dm){
  * 
  * @param me 
  */
-void Ciclo_basico::set_mdr(M_memory me){
-    string dato1 = me.get_mname();
+void Ciclo_basico::set_mdr(M_memory* me){       //[name, address, [address -> value]]
+    string dato1 = me->get_mname();
     mdr.push_back(dato1);
-    string dato2 = me.get_dir_adr();
-    mdr.push_back(dato2);
+    string dato2 = me->get_dir_adr();
+    mdr.push_back(dato2);                   
+
+    string dato3 = get_Set_value(dato2);        // se obtiene el valor inserto en la direccion de memoria referida
+    mdr.push_back(dato3);
 
 }
-void Ciclo_basico::set_un_control(M_memory mc){
-    string dato1 = mc.get_mname();
+
+
+
+
+
+
+
+void Ciclo_basico::set_un_control(M_memory* mc){
+    string dato1 = mc->get_mname();
     un_control.push_back(dato1);
-    string dato2 = mc.get_dir_adr();
+    string dato2 = mc->get_dir_adr();
     un_control.push_back(dato2);
 
 }
@@ -77,7 +87,7 @@ void Ciclo_basico::set_un_control(M_memory mc){
 int Ciclo_basico::get_pc(){
     return pc;
 }
-int Ciclo_basico::get_mar(){
+string Ciclo_basico::get_mar(){
     return mar;
 }
 int Ciclo_basico::get_acum(){
@@ -89,7 +99,7 @@ int Ciclo_basico::get_alu(){
 std::vector<string> Ciclo_basico::get_icr(){
     return icr;
 }
-std::vector<string> Ciclo_basico::get_mdr(){
+std::vector<string> Ciclo_basico::get_mdr_name_add(){
     return mdr;
 }
 std::vector<string> Ciclo_basico::get_un_control(){
@@ -111,13 +121,31 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + to_string(get_mar()) + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + get_mar() + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr_name_add()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
 }
 
 void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
 
     info_men = lm;
 
+}
+
+string Ciclo_basico::get_Set_value(string db){      //db direccion buscada
+
+    string value = "";
+
+    for (M_memory* mpt : info_men)
+    {
+        string st_recep = mpt->get_dir_adr();
+
+        if (st_recep==db)
+        {
+            value = mpt->get_tag1();
+        }
+        
+    }
+    
+    return value;
 }
 
 
