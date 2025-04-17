@@ -2,7 +2,7 @@
 
 
 Ciclo_basico::Ciclo_basico(){
-    pc=99;
+    pc=0;
     mar=0;
     acum=0;
     alu=0;
@@ -20,8 +20,17 @@ Ciclo_basico::~Ciclo_basico()
     cout<<"..termina objeto CB...\n\n";
 }
 
-void Ciclo_basico::set_pc(int cou){
-    pc=cou;
+void Ciclo_basico::set_pc(std::vector<M_memory*> di){
+    int contd = 0;
+    for (M_memory* lm : di)
+    {
+        if (lm->get_mname()=="SET")
+        {
+            contd ++;
+        }
+        
+    }
+    pc=contd;
 }
 void Ciclo_basico::set_mar(int ma){
     mar=ma;
@@ -35,7 +44,7 @@ void Ciclo_basico::set_alu(int al){
 void Ciclo_basico::set_icr(M_memory dm){
     string dato1 = dm.get_mname();
     icr.push_back(dato1);
-    string dato2 = dm.get_vvalue();
+    string dato2 = dm.get_dir_adr();
     icr.push_back(dato2);
 
 }
@@ -50,14 +59,14 @@ void Ciclo_basico::set_icr(M_memory dm){
 void Ciclo_basico::set_mdr(M_memory me){
     string dato1 = me.get_mname();
     mdr.push_back(dato1);
-    string dato2 = me.get_vvalue();
+    string dato2 = me.get_dir_adr();
     mdr.push_back(dato2);
 
 }
 void Ciclo_basico::set_un_control(M_memory mc){
     string dato1 = mc.get_mname();
     un_control.push_back(dato1);
-    string dato2 = mc.get_vvalue();
+    string dato2 = mc.get_dir_adr();
     un_control.push_back(dato2);
 
 }
@@ -99,7 +108,7 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico: " + to_string(get_pc()) + to_string(get_mar()) + to_string(get_acum()) + to_string(get_alu()) + mostrar_vector(get_icr()) + mostrar_vector(get_mdr()) + mostrar_vector(get_un_control()) + " hola final\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + to_string(get_mar()) + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
 }
 
 

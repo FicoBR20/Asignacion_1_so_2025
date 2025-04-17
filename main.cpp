@@ -14,6 +14,7 @@ std::vector<M_memory*>memoria_ocupada;
 
 
 
+
 /**
  * @brief funcion que lee un archivo de texto y transforma lo leido
  * en objetos M_memory para asi llenar el vector memoria ocupada
@@ -73,56 +74,56 @@ void lectura_archivo(string cont){
                         if (st1 == "SET")
                         {
                             M_memory *mm;
-                            mm = new M_memory(st2, st3);
+                            mm = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(mm);
                             
                         }
                         else if (st1 == "LDR")
                         {
                             M_memory *ff;
-                            ff = new M_memory(st1, st2);
+                            ff = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(ff);
                         }
                         else if (st1 == "ADD")
                         {
                             M_memory *dd;
-                            dd = new M_memory(st1, st2);
+                            dd = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(dd);
                         }
                         else if (st1 == "INC")
                         {
                             M_memory *ii;
-                            ii = new M_memory(st1, st2);
+                            ii = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(ii);
                         }
                         else if (st1 == "DEC")
                         {
                             M_memory *de;
-                            de = new M_memory(st1, st2);
+                            de = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(de);
                         }
                         else if (st1 == "STR")
                         {
                             M_memory *st;
-                            st = new M_memory(st1, st2);
+                            st = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(st);
                         }
                         else if (st1 == "SHW")
                         {
                             M_memory *sh;
-                            sh = new M_memory(st1, st2);
+                            sh = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(sh);
                         }
                         else if (st1 == "PAUSE")
                         {
                             M_memory *ps;
-                            ps = new M_memory(st1, st2);
+                            ps = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(ps);
                         }
                         else if (st1 == "END")
                         {
                             M_memory *en;
-                            en = new M_memory(st1, st2);
+                            en = new M_memory(st1, st2, st3, st4, st5);
                             memoria_ocupada.push_back(en);
                         }
                         
@@ -180,6 +181,15 @@ int main(int argc, char const *argv[])
 
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
+    cb->set_pc(memoria_ocupada);
+
+
+
+    //probador cout============
+
+    cout<<"...prueba de proceso.." + to_string(cb->get_pc())+" \n";
+
+    //========================
     cb->mostrar_ciclo_basico();
 
     for (M_memory* mm : memoria_ocupada)

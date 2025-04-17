@@ -17,13 +17,13 @@ public:
     Ciclo_basico(int cont);
     ~Ciclo_basico();
 
-    void set_pc(int pc);
+    void set_pc(std::vector<M_memory*> din);
     void set_mar(int ma);
     void set_acum(int ac);
     void set_alu(int al);
     void set_icr(M_memory mem);
-    void set_mdr(M_memory mem);
-    void set_un_control(M_memory mem);
+    void set_mdr(M_memory muc);
+    void set_un_control(M_memory mkl);
 
     int get_pc();
     int get_mar();
