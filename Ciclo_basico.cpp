@@ -9,6 +9,9 @@ Ciclo_basico::Ciclo_basico(){
     vector<string>icr;
     vector<string>mdr;
     vector<string>un_control;
+
+    vector<M_memory*>info_men;
+
 }
 Ciclo_basico::Ciclo_basico(int dm)
 {
@@ -20,9 +23,9 @@ Ciclo_basico::~Ciclo_basico()
     cout<<"..termina objeto CB...\n\n";
 }
 
-void Ciclo_basico::set_pc(std::vector<M_memory*> di){
+void Ciclo_basico::set_pc(){
     int contd = 0;
-    for (M_memory* lm : di)
+    for (M_memory* lm : info_men)
     {
         if (lm->get_mname()=="SET")
         {
@@ -110,6 +113,13 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 void Ciclo_basico::mostrar_ciclo_basico(){
     cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + to_string(get_mar()) + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
 }
+
+void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
+
+    info_men = lm;
+
+}
+
 
 
 //operaciones

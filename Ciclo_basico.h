@@ -17,7 +17,7 @@ public:
     Ciclo_basico(int cont);
     ~Ciclo_basico();
 
-    void set_pc(std::vector<M_memory*> din);
+    void set_pc();
     void set_mar(int ma);
     void set_acum(int ac);
     void set_alu(int al);
@@ -36,6 +36,7 @@ public:
 
     string mostrar_vector(vector<string>vs);
     void mostrar_ciclo_basico();
+    void set_instrucciones(vector<M_memory*>lm);
 
 private:
     int pc;             //contador de programas
@@ -45,6 +46,9 @@ private:
     std::vector<string> icr;        //instruction to process
     std::vector<string> mdr;        //instruction to process
     std::vector<string> un_control;        //instruction to process
+
+    vector<M_memory*>info_men;      //listado de instrucciones a realizar
+
 
 };
 

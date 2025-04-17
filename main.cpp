@@ -181,7 +181,8 @@ int main(int argc, char const *argv[])
 
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
-    cb->set_pc(memoria_ocupada);
+    cb->set_instrucciones(memoria_ocupada);
+    cb->set_pc();
 
 
 
@@ -190,6 +191,8 @@ int main(int argc, char const *argv[])
     cout<<"...prueba de proceso.." + to_string(cb->get_pc())+" \n";
 
     //========================
+
+    
     cb->mostrar_ciclo_basico();
 
     for (M_memory* mm : memoria_ocupada)
@@ -213,6 +216,8 @@ int main(int argc, char const *argv[])
     }
 
     cout<<to_string(memoria_ocupada.size())<<endl;
+
+    delete cb;
     
 
     
