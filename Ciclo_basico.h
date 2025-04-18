@@ -17,12 +17,21 @@ public:
     Ciclo_basico(int cont);
     ~Ciclo_basico();
 
-    void set_pc();                  // definido por la cantidad de instrucciones SET
+    // int iniciador();
+
+
+    void set_pc(int ini);                  // definido por la cantidad de instrucciones SET
     void set_mar(string ma);
+
+    void set_mar_pc(int ind);
+
     void set_acum(int ac);
     void set_alu(int al);
     void set_icr(M_memory* mem);
     void set_mdr(M_memory* muc);
+
+    void set_mdr_value(M_memory* vm);
+
     void set_un_control(M_memory* mkl);
 
     int get_pc();
@@ -30,8 +39,7 @@ public:
     int get_acum();
     int get_alu();
     std::vector<string> get_icr();
-    std::vector<string> get_mdr_name_addrs();
-    std::string get_mdr_tag1_value(); //entrega string con el valor existente en el SET
+    std::vector<string> get_mdr();
     std::vector<string> get_un_control();
 
 
@@ -39,6 +47,14 @@ public:
     void mostrar_ciclo_basico();
     void set_instrucciones(vector<M_memory*>lm);
     string get_Set_value(string ddb);             //obtener el valor del Set (3er campo)
+
+
+    //funciones del motor
+
+    string print_vector(vector<string>vst);
+
+
+    void load_instruction();
 
 
 

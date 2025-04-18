@@ -181,25 +181,24 @@ int main(int argc, char const *argv[])
 
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
-    cb->set_instrucciones(memoria_ocupada);
-    cb->set_pc();
+    cb->set_instrucciones(memoria_ocupada); // tomamos la memoria a procesar
+    cb->load_instruction(); // cargamos las operaciones finales
 
 
 
     //probador cout============
 
-    cout<<"...prueba de proceso.." + to_string(cb->get_pc())+" \n";
 
     //========================
 
     
-    cb->mostrar_ciclo_basico();
+    // cb->mostrar_ciclo_basico();
 
-    for (M_memory* mm : memoria_ocupada)
-    {
-        mm->mostrar_memoria();
+    // for (M_memory* mm : memoria_ocupada)
+    // {
+    //     mm->mostrar_memoria();
         
-    }
+    // }
     
 
     

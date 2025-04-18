@@ -1,5 +1,11 @@
 #include "Ciclo_basico.h"
 
+/**
+ * @brief posicion de lectura
+ * 
+ */
+int pos_lect=0;
+
 
 Ciclo_basico::Ciclo_basico(){
     pc=0;
@@ -23,28 +29,48 @@ Ciclo_basico::~Ciclo_basico()
     cout<<"..termina objeto CB...\n\n";
 }
 
-void Ciclo_basico::set_pc(){
-    int contd = 0;
-    for (M_memory* lm : info_men)
-    {
-        if (lm->get_mname()=="SET")
-        {
-            contd ++;
-        }
+// int Ciclo_basico::iniciador(){
+
+//     int recoge = 0;
+
+//     for (M_memory* lm : info_men)
+//     {
+//         if (lm->get_mname()=="SET")
+//         {
+//             recoge ++;
+//         }
         
-    }
-    pc=contd;
+//     }
+
+//     return recoge;
+
+// }
+
+void Ciclo_basico::set_pc( int posc){
+   
+    pc=posc;
 }
 void Ciclo_basico::set_mar(string ma){
     mar=ma;
 }
+
+
+void Ciclo_basico::set_mar_pc(int ind){
+
+    mar = to_string(ind);
+
+
+}
+
+
 void Ciclo_basico::set_acum(int ac){
-    acum=ac;
+    acum = acum + ac;
 }
 void Ciclo_basico::set_alu(int al){
     alu=al;
 }
 void Ciclo_basico::set_icr(M_memory* dm){
+    icr.clear();
     string dato1 = dm->get_mname();
     icr.push_back(dato1);
     string dato2 = dm->get_dir_adr();
@@ -58,14 +84,31 @@ void Ciclo_basico::set_icr(M_memory* dm){
  * 
  * @param me 
  */
-void Ciclo_basico::set_mdr(M_memory* me){       //[name, address, [address -> value]]
+void Ciclo_basico::set_mdr(M_memory* me){       //[name, address
+    mdr.clear();
     string dato1 = me->get_mname();
     mdr.push_back(dato1);
     string dato2 = me->get_dir_adr();
     mdr.push_back(dato2);                   
 
-    string dato3 = get_Set_value(dato2);        // se obtiene el valor inserto en la direccion de memoria referida
-    mdr.push_back(dato3);
+    // string dato3 = get_Set_value(dato2);        // se obtiene el valor inserto en la direccion de memoria referida
+    // mdr.push_back(dato3);
+
+}
+
+
+void Ciclo_basico::set_mdr_value(M_memory* vm){
+
+    string st_aux, recibe = "";
+    recibe = vm->get_dir_adr();
+    st_aux = get_Set_value(recibe);
+
+    mdr.clear();
+    mdr.push_back(st_aux);
+
+
+
+
 
 }
 
@@ -76,6 +119,7 @@ void Ciclo_basico::set_mdr(M_memory* me){       //[name, address, [address -> va
 
 
 void Ciclo_basico::set_un_control(M_memory* mc){
+    un_control.clear();
     string dato1 = mc->get_mname();
     un_control.push_back(dato1);
     string dato2 = mc->get_dir_adr();
@@ -98,17 +142,10 @@ int Ciclo_basico::get_alu(){
 std::vector<string> Ciclo_basico::get_icr(){
     return icr;
 }
-std::vector<string> Ciclo_basico::get_mdr_name_addrs(){
-    vector<string>entregav;
-    entregav = mdr;
-    entregav.pop_back(); // no va el tercer campo del valor
-    return entregav;
+std::vector<string> Ciclo_basico::get_mdr(){
+    return mdr;
 }
-std::string Ciclo_basico::get_mdr_tag1_value(){
-    string val = "";
-    val = mdr.at(2);
-    return val;
-}
+
 std::vector<string> Ciclo_basico::get_un_control(){
     return un_control;
 }
@@ -128,7 +165,7 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + get_mar() + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr_name_addrs()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR:" + get_mar() + "   ACUM:" + to_string(get_acum()) + "   ALU:" + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " es todo.\n";
 }
 
 void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
@@ -163,6 +200,67 @@ string Ciclo_basico::get_Set_value(string db){      //db direccion buscada
 
 
 
-//operaciones
+//Funciones del motor
+
+/**
+ * @brief entrega string concatenado de los miembros
+ * de un vector<string>dado
+ * 
+ * @return string 
+ */
+string Ciclo_basico::print_vector(vector<string>vst){
+    string rect = "";
+    for (string ste : vst)
+    {
+        rect = rect + " " + ste;
+    }
+
+    return rect;
+    
+}
+
+
+
+
+void Ciclo_basico::load_instruction(){
+    int auxx = 0 ;
+    string recep, ayud = "";
+    set_pc(0);
+
+    for (M_memory* mm : info_men)
+    {   
+        if (mm->get_mname()=="SET")
+        {
+            pc++;
+        }
+        
+        else if (mm->get_mname()=="LDR")
+        {
+            set_mar_pc(get_pc());
+            set_mdr(mm);
+            set_icr(mm);
+            pc++;
+            set_un_control(mm);
+            set_mar(mm->get_dir_adr());
+            set_mdr_value(mm);
+            mostrar_ciclo_basico();
+
+            // recep = mm->get_dir_adr();
+            // ayud = get_Set_value(recep);
+            // auxx = stoi(ayud);
+
+
+            // set_acum(auxx);
+
+
+
+
+            cout<<"Soy ldr \n";
+        }
+        
+    }
+    
+}
+
 
 
