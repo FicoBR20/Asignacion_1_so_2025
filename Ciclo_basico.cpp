@@ -1,12 +1,10 @@
 #include "Ciclo_basico.h"
 
+
 /**
- * @brief posicion de lectura
- * 
+ * @brief Construct a new Ciclo_basico::Ciclo_basico object
+ * inicializa atributos en el valor default
  */
-int pos_lect=0;
-
-
 Ciclo_basico::Ciclo_basico(){
     pc=0;
     mar="";
@@ -19,26 +17,50 @@ Ciclo_basico::Ciclo_basico(){
     vector<M_memory*>info_men;
 
 }
+
+/**
+ * @brief Construct a new Ciclo_basico::Ciclo_basico object
+ * contruye un nuevo objeto con el parametro del atributo pc
+ * @param dm 
+ */
 Ciclo_basico::Ciclo_basico(int dm)
 {
     this -> pc = dm;
 }
-
+/**
+ * @brief Destroy the Ciclo_basico::Ciclo_basico object
+ * 
+ */
 Ciclo_basico::~Ciclo_basico()
 {
     cout<<"..termina objeto CB...\n\n";
 }
 
-
+/**
+ * @brief configura el atributo pc
+ * 
+ * @param posc 
+ */
 void Ciclo_basico::set_pc( int posc){
    
     pc=posc;
 }
+
+/**
+ * @brief configura el atributo mar
+ * 
+ * @param ma 
+ */
 void Ciclo_basico::set_mar(string ma){
     mar=ma;
 }
 
-
+/**
+ * @brief configura el atributo mar con el numero
+ * del contador de programas
+ * 
+ * @param ind 
+ */
 void Ciclo_basico::set_mar_pc(int ind){
 
     mar = to_string(ind);
@@ -46,13 +68,30 @@ void Ciclo_basico::set_mar_pc(int ind){
 
 }
 
-
+/**
+ * @brief configura el acumulador
+ * 
+ * @param ac 
+ */
 void Ciclo_basico::set_acum(int ac){
     acum = acum + ac;
 }
+
+/**
+ * @brief configura el atributo alu
+ * 
+ * @param al 
+ */
 void Ciclo_basico::set_alu(int al){
     alu=al;
 }
+
+/**
+ * @brief funcion que genera 2 campos para el atributo icr;
+ * [name, address]
+ * 
+ * @param dm 
+ */
 void Ciclo_basico::set_icr(M_memory* dm){
     icr.clear();
     string dato1 = dm->get_mname();
@@ -78,9 +117,8 @@ void Ciclo_basico::set_mdr(M_memory* me){
 }
 
 /**
- * @brief funcion que genera el valor entero asociado a 
- * una posicion de memoria y se lo asigna a el arreglo mdr
- * quedando como unico termino en dicho arreglo
+ * @brief funcion que configura el mdr con el valor
+ * entero contenido en una posicion de memoria
  * 
  * @param vm 
  */
@@ -95,17 +133,29 @@ void Ciclo_basico::set_mdr_value(M_memory* vm){
 }
 
 
-
-
-
-
-
+/**
+ * @brief funcion que genera 2 campos para el atributo un_control
+ * [name, address]
+ * 
+ * @param mc 
+ */
 void Ciclo_basico::set_un_control(M_memory* mc){
     un_control.clear();
     string dato1 = mc->get_mname();
     un_control.push_back(dato1);
     string dato2 = mc->get_dir_adr();
     un_control.push_back(dato2);
+    
+}
+
+/**
+ * @brief funcion que asigna el vector con las instrucciones
+ * a procesar
+ * 
+ */
+void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
+
+    info_men = lm;
 
 }
 
@@ -133,35 +183,11 @@ std::vector<string> Ciclo_basico::get_un_control(){
 }
 
 
-string Ciclo_basico::mostrar_vector(vector<string>vect){
-
-    string entrega = "";
-    stringstream recolecta;
-    for (string st: vect)
-    {
-        recolecta<<st;
-    }
-    recolecta>>entrega;
-    return entrega;
-
-}
 
 void Ciclo_basico::mostrar_ciclo_basico(){
     cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " es todo.\n";
 }
 
-void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
-
-    info_men = lm;
-
-}
-/**
- * @brief funcion que entrega el valor entero almacenado en una
- * direccion de memoria; el valor del entero lo entrega en formato string
- * 
- * @param db // direccion de memoria buscada
- * @return string 
- */
 string Ciclo_basico::get_Set_value(M_memory* dm){      //db direccion buscada
 
     string value, recet, proof, auxil = "";
@@ -184,15 +210,10 @@ string Ciclo_basico::get_Set_value(M_memory* dm){      //db direccion buscada
 }
 
 
+// funciones del motor
 
-//Funciones del motor
 
-/**
- * @brief entrega string concatenado de los miembros
- * de un vector<string>dado
- * 
- * @return string 
- */
+
 string Ciclo_basico::print_vector(vector<string>vst){
     string rect = "";
     for (string ste : vst)
@@ -241,6 +262,13 @@ void Ciclo_basico::load_instruction(){
 
             cout<<"Soy ldr \n";
         }
+        else if (mm->get_mname()=="ADD")
+        {
+            set_mar_pc(get_pc());
+
+            cout<<"soy add \n";
+        }
+        
         
     }
     

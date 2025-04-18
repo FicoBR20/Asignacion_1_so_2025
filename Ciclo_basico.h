@@ -20,7 +20,7 @@ public:
     // int iniciador();
 
 
-    void set_pc(int ini);                  // definido por la cantidad de instrucciones SET
+    void set_pc(int ini);
     void set_mar(string ma);
 
     void set_mar_pc(int ind);
@@ -34,6 +34,8 @@ public:
 
     void set_un_control(M_memory* mkl);
 
+    void set_instrucciones(vector<M_memory*>lm);
+
     int get_pc();
     std::string get_mar();
     int get_acum();
@@ -43,33 +45,57 @@ public:
     std::vector<string> get_un_control();
 
 
-    string mostrar_vector(vector<string>vs);
-    void mostrar_ciclo_basico();
-    void set_instrucciones(vector<M_memory*>lm);
-    string get_Set_value(M_memory* pm);             //obtener el valor del Set (3er campo)
-
-
     //funciones del motor
+    
+    /**
+     * @brief funcion que define las acciones
+     * a ejecutar segun el atributo "mname" del
+     * objeto M_memory
+     * 
+     */
+    void load_instruction();
 
+    /**
+     * @brief muestra en consola el estado de todos
+     * los atributos del objeto Ciclo_basico
+     * 
+     */
+    void mostrar_ciclo_basico();
+
+    /**
+     * @brief funcion que devuelve un string del valor entero almacenado en una
+     * direccion de memoria
+     * 
+     * @param pm // objeto con la direccion de memoria
+     * @return string 
+     */
+    string get_Set_value(M_memory* pm);          
+
+
+
+    /**
+     * @brief funcion auxiliar entrega un string
+     * tomando los campos de un vector<string>;
+     * 
+     * @return string 
+     */
     string print_vector(vector<string>vst);
 
-
-    void load_instruction();
 
 
 
 
 
 private:
-    int pc;             //contador de programas
-    std::string mar;            //manejador de memoria
-    int acum;           //acumulador
-    int alu;            //totalizador
-    std::vector<string> icr;        //instruction to process
-    std::vector<string> mdr;        //instruction to process
-    std::vector<string> un_control;        //instruction to process
+    int pc;                             //contador de programas
+    std::string mar;                    //registro de direcciones de memoria
+    int acum;                           //acumulador
+    int alu;                            //totalizador
+    std::vector<string> icr;            //actualizador de registro en ejecucion
+    std::vector<string> mdr;            //datos en direccion de memoria
+    std::vector<string> un_control;     //asignador de gestion
 
-    vector<M_memory*>info_men;      //listado de instrucciones a realizar
+    vector<M_memory*>info_men;          //lista de registros para ejecucion
 
 
 };
