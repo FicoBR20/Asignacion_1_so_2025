@@ -143,7 +143,7 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
     }
     recolecta>>entrega;
     return entrega;
-    
+
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
