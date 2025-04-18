@@ -46,7 +46,7 @@ public:
     string mostrar_vector(vector<string>vs);
     void mostrar_ciclo_basico();
     void set_instrucciones(vector<M_memory*>lm);
-    string get_Set_value(string ddb);             //obtener el valor del Set (3er campo)
+    string get_Set_value(M_memory* pm);             //obtener el valor del Set (3er campo)
 
 
     //funciones del motor

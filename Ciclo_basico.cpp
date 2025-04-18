@@ -29,22 +29,6 @@ Ciclo_basico::~Ciclo_basico()
     cout<<"..termina objeto CB...\n\n";
 }
 
-// int Ciclo_basico::iniciador(){
-
-//     int recoge = 0;
-
-//     for (M_memory* lm : info_men)
-//     {
-//         if (lm->get_mname()=="SET")
-//         {
-//             recoge ++;
-//         }
-        
-//     }
-
-//     return recoge;
-
-// }
 
 void Ciclo_basico::set_pc( int posc){
    
@@ -79,36 +63,34 @@ void Ciclo_basico::set_icr(M_memory* dm){
 }
 
 /**
- * @brief funcion que genera 3 campos en el atributo mdr;
- * [ name , address, [ address -> tag1 (valor int en SET)]]
+ * @brief funcion que genera 2 campos para el atributo mdr;
+ * [ name , address ]
  * 
  * @param me 
  */
-void Ciclo_basico::set_mdr(M_memory* me){       //[name, address
+void Ciclo_basico::set_mdr(M_memory* me){      
     mdr.clear();
     string dato1 = me->get_mname();
     mdr.push_back(dato1);
     string dato2 = me->get_dir_adr();
-    mdr.push_back(dato2);                   
-
-    // string dato3 = get_Set_value(dato2);        // se obtiene el valor inserto en la direccion de memoria referida
-    // mdr.push_back(dato3);
+    mdr.push_back(dato2);                 
 
 }
 
-
+/**
+ * @brief funcion que genera el valor entero asociado a 
+ * una posicion de memoria y se lo asigna a el arreglo mdr
+ * quedando como unico termino en dicho arreglo
+ * 
+ * @param vm 
+ */
 void Ciclo_basico::set_mdr_value(M_memory* vm){
 
     string st_aux, recibe = "";
     recibe = vm->get_dir_adr();
-    st_aux = get_Set_value(recibe);
-
+    st_aux = get_Set_value(vm);
     mdr.clear();
     mdr.push_back(st_aux);
-
-
-
-
 
 }
 
@@ -165,7 +147,7 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR:" + get_mar() + "   ACUM:" + to_string(get_acum()) + "   ALU:" + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " es todo.\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " es todo.\n";
 }
 
 void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
@@ -174,25 +156,28 @@ void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
 
 }
 /**
- * @brief funcion que entrega el valor almacenado en una
- * direccion de memoria; el valor lo entrega en formato string
+ * @brief funcion que entrega el valor entero almacenado en una
+ * direccion de memoria; el valor del entero lo entrega en formato string
  * 
  * @param db // direccion de memoria buscada
  * @return string 
  */
-string Ciclo_basico::get_Set_value(string db){      //db direccion buscada
+string Ciclo_basico::get_Set_value(M_memory* dm){      //db direccion buscada
 
-    string value = "";
+    string value, recet, proof, auxil = "";
+
+    proof = dm->get_dir_adr();
 
     for (M_memory* mpt : info_men)
     {
-        string st_recep = mpt->get_dir_adr();
+        recet = mpt->get_dir_adr();
+        auxil = mpt->get_tag1();
 
-        if (st_recep==db)
+        if (recet==proof && auxil != "NULL")
         {
             value = mpt->get_tag1();
         }
-        
+    
     }
     
     return value;
@@ -223,8 +208,10 @@ string Ciclo_basico::print_vector(vector<string>vst){
 
 
 void Ciclo_basico::load_instruction(){
-    int auxx = 0 ;
+
+    int auxx;
     string recep, ayud = "";
+
     set_pc(0);
 
     for (M_memory* mm : info_men)
@@ -243,17 +230,14 @@ void Ciclo_basico::load_instruction(){
             set_un_control(mm);
             set_mar(mm->get_dir_adr());
             set_mdr_value(mm);
+            
+            recep = mm->get_dir_adr();
+            ayud = get_Set_value(mm);
+            auxx = stoi(ayud);
+            
+            
+            set_acum(auxx);
             mostrar_ciclo_basico();
-
-            // recep = mm->get_dir_adr();
-            // ayud = get_Set_value(recep);
-            // auxx = stoi(ayud);
-
-
-            // set_acum(auxx);
-
-
-
 
             cout<<"Soy ldr \n";
         }
