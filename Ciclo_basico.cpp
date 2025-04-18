@@ -53,9 +53,8 @@ void Ciclo_basico::set_icr(M_memory* dm){
 }
 
 /**
- * @brief PENDIENTE DE AJUSTAR CUANDO SE OPERA UNA
- * INSTRUCCION LOAD Y SE ENVIA AL ACUMULADOR LA CANTIDAD
- * DEBE SER IGUAL A LA CANTIDAD ENVIADA OSEA EL ENTERO
+ * @brief funcion que genera 3 campos en el atributo mdr;
+ * [ name , address, [ address -> tag1 (valor int en SET)]]
  * 
  * @param me 
  */
@@ -99,8 +98,16 @@ int Ciclo_basico::get_alu(){
 std::vector<string> Ciclo_basico::get_icr(){
     return icr;
 }
-std::vector<string> Ciclo_basico::get_mdr_name_add(){
-    return mdr;
+std::vector<string> Ciclo_basico::get_mdr_name_addrs(){
+    vector<string>entregav;
+    entregav = mdr;
+    entregav.pop_back(); // no va el tercer campo del valor
+    return entregav;
+}
+std::string Ciclo_basico::get_mdr_tag1_value(){
+    string val = "";
+    val = mdr.at(2);
+    return val;
 }
 std::vector<string> Ciclo_basico::get_un_control(){
     return un_control;
@@ -121,7 +128,7 @@ string Ciclo_basico::mostrar_vector(vector<string>vect){
 }
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + get_mar() + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr_name_add()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + " MAR: " + get_mar() + " ACUM: " + to_string(get_acum()) + " ALU: " + to_string(get_alu()) + " ICR: " + mostrar_vector(get_icr()) + " MDR: " + mostrar_vector(get_mdr_name_addrs()) + " UNIDAD DE CONTROL: " + mostrar_vector(get_un_control()) + " es todo.\n";
 }
 
 void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
@@ -129,7 +136,13 @@ void Ciclo_basico::set_instrucciones(vector<M_memory*>lm){
     info_men = lm;
 
 }
-
+/**
+ * @brief funcion que entrega el valor almacenado en una
+ * direccion de memoria; el valor lo entrega en formato string
+ * 
+ * @param db // direccion de memoria buscada
+ * @return string 
+ */
 string Ciclo_basico::get_Set_value(string db){      //db direccion buscada
 
     string value = "";

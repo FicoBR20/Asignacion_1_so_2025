@@ -17,7 +17,7 @@ public:
     Ciclo_basico(int cont);
     ~Ciclo_basico();
 
-    void set_pc();
+    void set_pc();                  // definido por la cantidad de instrucciones SET
     void set_mar(string ma);
     void set_acum(int ac);
     void set_alu(int al);
@@ -30,7 +30,8 @@ public:
     int get_acum();
     int get_alu();
     std::vector<string> get_icr();
-    std::vector<string> get_mdr_name_add();
+    std::vector<string> get_mdr_name_addrs();
+    std::string get_mdr_tag1_value(); //entrega string con el valor existente en el SET
     std::vector<string> get_un_control();
 
 
