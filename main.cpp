@@ -172,17 +172,18 @@ void lectura_archivo(string cont){
 
 int main(int argc, char const *argv[])
 {
-    //recurso de datos
+    //recurso de datos en archivo de texto
     string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Assignament_1/memo_1.txt";
     
-    //llenado de memoria con datos leidos (vector memoria_ocupada)
+    //llenado de memoria con datos leidos; se configura el vector<M_memory> con las instrucciones a procesar.
     lectura_archivo(ubicacion);
 
 
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
-    cb->set_instrucciones(memoria_ocupada); // tomamos la memoria a procesar
-    cb->load_instruction(); // cargamos las operaciones finales
+    cb->set_instrucciones(memoria_ocupada); // tomamos los datos a procesar
+    cb->load_instruction(); // cargamos las operaciones sobre los datos
+    cb->mostrar_ciclo_basico(); // presentamos el resultado final
 
 
 
@@ -192,23 +193,16 @@ int main(int argc, char const *argv[])
     //========================
 
     
-    // cb->mostrar_ciclo_basico();
-
-    // for (M_memory* mm : memoria_ocupada)
-    // {
-    //     mm->mostrar_memoria();
-        
-    // }
-    
-
-    
-
-
-    
-    
     cout<<"Gracias a Dios"<<endl;
 
-    for (M_memory* pm : memoria_ocupada)
+    //Proceso de liberacion de la memoria
+
+    for (M_memory* pm : memoria_ocupada)/**
+    * @brief entrega string concatenado de los miembros
+    * de un vector<string>dado
+    * 
+    * @return string 
+    */
     {
         pm=NULL;
         delete pm;
