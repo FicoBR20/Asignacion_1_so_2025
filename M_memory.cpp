@@ -1,3 +1,16 @@
+/**
+ * @file M_memory.cpp
+ * @author federico.barbetti@correounivalle.edu.co
+ * @brief clase que representa los registros a ser ejecutados por el procesador
+ * @version 0.1
+ * @date 2025-04-19
+ * @details :ninguna relacion con otras clases
+ * 
+ * @copyright GNU-GPL
+ * 
+ */
+
+
 #include "M_memory.h"
 
 M_memory::M_memory(string sna, string di, string ta1, string ta2, string ta3){
@@ -51,13 +64,6 @@ string M_memory::get_tag3(){
 }
 
 // funciones auxiliares
-
-int M_memory::convert_int(string di){
-    int conv;
-    conv = stoi(di);
-    return conv;
-
-}
 
 /**
  * @brief 

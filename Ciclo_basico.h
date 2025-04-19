@@ -1,3 +1,15 @@
+/**
+ * @file Ciclo_basico.h
+ * @author federico.barbetti@correounivalle.edu.co
+ * @brief Clase que representa el ciclo basico de instrucciones de un procesador
+ * @version 0.1
+ * @date 2025-04-19
+ * @details :relacion de composicion con la clase M_memory
+ * 
+ * 
+ * @copyright GNU-GPL
+ * 
+ */
 #ifndef CICLO_BASICO_H
 #define CICLO_BASICO_H
 
@@ -6,18 +18,13 @@
 
 #pragma once
 
-/**
- * @brief Clase que representa el ciclo basico de instruccion
- * 
- */
+
 class Ciclo_basico
 {
 public:
     Ciclo_basico();
-    Ciclo_basico(int cont);
-    ~Ciclo_basico();
 
-    // int iniciador();
+    ~Ciclo_basico();
 
 
     void set_pc(int ini);
@@ -45,7 +52,6 @@ public:
     std::vector<string> get_un_control();
 
 
-    //funciones del motor
     
     /**
      * @brief funcion que define las acciones
@@ -85,16 +91,21 @@ public:
 
     /**
      * @brief funcion que entrega la direccion de
-     * un objeto M_memory segun atributo configurado
+     * un objeto M_memory segun instruccion STR
      * 
      * @param addr 
      * @return M_memory* 
      */
     M_memory* to_store(std::string addr);
 
-
-
-
+    /**
+     * @brief funcion que entrega la direccion de
+     * un objeto M_memory segun instruccion SHW
+     * 
+     * @param addr 
+     * @return M_memory* 
+     */
+    M_memory* to_show(std::string addr);
 
 
 private:

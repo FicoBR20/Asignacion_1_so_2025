@@ -1,3 +1,16 @@
+/**
+ * @file Ciclo_basico.cpp
+ * @author federico.barbetti@correounivalle.edu.co
+ * @brief Clase que representa el ciclo basico de instrucciones de un procesador
+ * @version 0.1
+ * @date 2025-04-19
+ * @details :relacion de composicion con la clase M_memory
+ * 
+ * 
+ * @copyright GNU-GPL
+ * 
+ */
+
 #include "Ciclo_basico.h"
 
 
@@ -19,21 +32,11 @@ Ciclo_basico::Ciclo_basico(){
 }
 
 /**
- * @brief Construct a new Ciclo_basico::Ciclo_basico object
- * contruye un nuevo objeto con el parametro del atributo pc
- * @param dm 
- */
-Ciclo_basico::Ciclo_basico(int dm)
-{
-    this -> pc = dm;
-}
-/**
  * @brief Destroy the Ciclo_basico::Ciclo_basico object
  * 
  */
 Ciclo_basico::~Ciclo_basico()
 {
-    cout<<"..termina objeto CB...\n\n";
 }
 
 /**
@@ -185,10 +188,10 @@ std::vector<string> Ciclo_basico::get_un_control(){
 
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " es todo.\n";
+    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " \n";
 }
 
-string Ciclo_basico::get_Set_value(M_memory* dm){      //db direccion buscada
+string Ciclo_basico::get_Set_value(M_memory* dm){   
 
     string value, recet, proof, auxil = "";
 
@@ -209,10 +212,7 @@ string Ciclo_basico::get_Set_value(M_memory* dm){      //db direccion buscada
     return value;
 }
 
-
-// funciones del motor
-
-
+// funciones de proceso.
 
 string Ciclo_basico::print_vector(vector<string>vst){
     string rect = "";
@@ -228,21 +228,36 @@ string Ciclo_basico::print_vector(vector<string>vst){
 
 M_memory* Ciclo_basico::to_store(std::string addr){
 
-    M_memory* comparadora;
+    M_memory* cambiante;
 
     for (M_memory* ref : info_men)
     {
         if (ref->get_dir_adr()==addr && ref->get_mname()=="SET")
         {
-            comparadora = ref;
+            cambiante = ref;
         }
         
     }
     
-    return comparadora;
+    return cambiante;
 }
 
 
+M_memory* Ciclo_basico::to_show(std::string dir){
+
+    M_memory* mostrona;
+
+    for (M_memory* reg : info_men)
+    {
+        if (reg->get_dir_adr()==dir && reg->get_mname()!="SHW")
+        {
+            mostrona = reg;
+        }
+        
+    }
+    
+    return mostrona;
+}
 
 
 void Ciclo_basico::load_instruction(){
@@ -274,15 +289,7 @@ void Ciclo_basico::load_instruction(){
             ayud = get_Set_value(mm);
             auxx = stoi(ayud);
             
-            
             set_acum(auxx);
-
-            
-            mostrar_ciclo_basico();
-
-            cout<<"Soy ldr \n";
-
-
 
         }
         else if (info_men.at(i)->get_mname()=="ADD")
@@ -301,21 +308,10 @@ void Ciclo_basico::load_instruction(){
             ayud = get_Set_value(mm);
             auxx = stoi(ayud);
 
-
             set_acum(auxx); 
             set_alu(get_alu() + get_acum());
-            
             set_acum(get_alu());
         
-
-            mostrar_ciclo_basico();
-
-
-
-            cout<<"soy add \n";
-
-        
-
         }
         else if (info_men.at(i)->get_mname()=="STR")
         {
@@ -326,27 +322,15 @@ void Ciclo_basico::load_instruction(){
             pc++;
             set_un_control(mm);
             set_mdr_value(mm);
-            cout<<"el mdr solitico es; " + print_vector(get_mdr()) + " \n" ;
-            cout<<" mi direccion es: " + mm->get_dir_adr() + " \n";
-            string stemp, stmem = " ";         
-            stemp = print_vector(get_mdr());  // string con el nuevo valor entero a asignarse a una posicion de memoria
+            string stmem = " ";         
             stmem = mm->get_dir_adr();
 
             mm = to_store(stmem);
 
             mm->set_tag1(to_string(get_acum()));
 
-        
+            // mm->mostrar_memoria();
 
-            mm->mostrar_memoria();
-
-            mostrar_ciclo_basico();
-
-
-
-
-            /* code */
-            cout<<"soy store \n";
         }
         else if (info_men.at(i)->get_mname()=="SHW")
         {
@@ -355,81 +339,14 @@ void Ciclo_basico::load_instruction(){
         }
         else if (info_men.at(i)->get_mname()=="END")
         {
-            /* code */
-            cout<<" soy el final jajaja \n";
+            mostrar_ciclo_basico();
         }
-        
-        
-        
         
         
         
     }
     
 
-
-
-
-
-
-    // for (M_memory* mm : info_men)
-    // {   
-    //     if (mm->get_mname()=="SET")
-    //     {
-    //         pc++;
-    //     }
-        
-    //     else if (mm->get_mname()=="LDR")
-    //     {
-    //         set_mar_pc(get_pc());
-    //         set_mdr(mm);
-    //         set_icr(mm);
-    //         pc++;
-    //         set_un_control(mm);
-    //         set_mar(mm->get_dir_adr());
-    //         set_mdr_value(mm);
-            
-    //         recep = mm->get_dir_adr();
-    //         ayud = get_Set_value(mm);
-    //         auxx = stoi(ayud);
-            
-            
-    //         set_acum(auxx);
-    //         mostrar_ciclo_basico();
-
-    //         cout<<"Soy ldr \n";
-    //     }
-    //     else if (mm->get_mname()=="ADD")
-    //     {
-    //         set_mar_pc(get_pc());
-    //         set_mdr(mm);
-    //         set_icr(mm);
-    //         pc++;
-    //         set_un_control(mm);
-    //         // set_alu(get_acum());
-    //         set_mar(mm->get_dir_adr());
-    //         set_mdr_value(mm);
-
-    //         recep = mm->get_dir_adr();
-    //         ayud = get_Set_value(mm);
-    //         auxx = stoi(ayud);
-            
-            
-    //         set_acum(auxx);
-    //         cout<<"arribita .. soy acum " + to_string(get_acum()) + " soy alu " + to_string(get_alu()) + " \n";
-    //         set_alu(get_acum());
-    //         set_acum(get_alu());
-    //         cout<<"abajito .. soy acum " + to_string(get_acum()) + " soy alu " + to_string(get_alu()) + " \n";
-
-    //         mostrar_ciclo_basico();
-
-
-
-    //         cout<<"soy add \n";
-    //     }
-        
-        
-    // }
     
 }
 

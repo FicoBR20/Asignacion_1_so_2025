@@ -1,3 +1,15 @@
+/**
+ * @file M_memory.h
+ * @author federico.barbetti@correounivalle.edu.co
+ * @brief clase que representa los registros a ser ejecutados por el procesador
+ * @version 0.1
+ * @date 2025-04-19
+ * @details :ninguna relacion con otras clases
+ * 
+ * @copyright GNU-GPL
+ * 
+ */
+
 #ifndef M_MEMORY_H
 #define M_MEMORY_H
 
@@ -11,7 +23,7 @@ using namespace std;
 
 
 /**
- * @brief Clase que representa las instrucciones consignadas en la memoria primcipal
+ * @brief Clase que representa los registros dispuestos en la memoria primcipal
  * para ser ejecutadas
  * 
  */
@@ -33,15 +45,14 @@ public:
     string get_tag2();
     string get_tag3(); 
 
-    int convert_int(string di);
     void mostrar_memoria();
 
 private:
-    std::string m_name;
-    std::string dir_adr;
-    std::string tag_1;
-    std::string tag_2;
-    std::string tag_3;
+    std::string m_name;             // Atributo que idenfica el tipo de la tarea a ejecutarse en el registro
+    std::string dir_adr;            // indica la direccion de memoria en donde reside el registro
+    std::string tag_1;              // campo de libre uso para el objeto
+    std::string tag_2;              // campo de libre uso para el objeto
+    std::string tag_3;              // campo de libre uso para el objeto
 
 };
 

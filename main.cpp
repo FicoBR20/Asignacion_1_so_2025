@@ -1,3 +1,15 @@
+/**
+ * @file main.cpp
+ * @author federico.barbetti@correounivalle.edu.co
+ * @brief se procesa informacion para obtener el resultado
+ * final del valor almacenado en el componente "alu"
+ * @version 0.1
+ * @date 2025-04-19
+ * 
+ * @copyright GNU-GPL
+ * 
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,23 +28,22 @@ std::vector<M_memory*>memoria_ocupada;
 
 
 /**
- * @brief funcion que lee un archivo de texto y transforma lo leido
- * en objetos M_memory para asi llenar el vector memoria ocupada
+ * @brief llenado de arreglo memoria_ocupada con los datos
+ * leidos del archivo de texto.
  * 
  * @param cont 
  */
 void lectura_archivo(string cont){
     
-    ifstream mylector(cont);                      //objeto stream de lectura
+    ifstream mylector(cont);                  
     
-    char muestra_simbolo;                               //contenedor de cada simbolo leido
-    char comodin = ' ';                               //cambia el final del string a un espaciador.
+    char muestra_simbolo;                     
     
-    std::string st1, st2, st3, st4, st5;                     //receptor de cadena formateada with final symbol
+    std::string st1, st2, st3, st4, st5;
     
-    std::string for_used_lines = "";                         //contenedor de linea leida
+    std::string for_used_lines = "";
     
-    int curr_post = 0;                                  //contenedor de posicion de lectura
+    int curr_post = 0;
 
 
     if (mylector.is_open())
@@ -40,18 +51,18 @@ void lectura_archivo(string cont){
         do
         {
             
-            curr_post=mylector.tellg();             //posicion de lectura
-            muestra_simbolo=mylector.get();         //actual caracter leido
-            getline(mylector, for_used_lines, '\n');//buffer lector, string receptor, symbol reading stop condition
+            curr_post=mylector.tellg();  
+            muestra_simbolo=mylector.get(); 
+            getline(mylector, for_used_lines, '\n');
     
             if (!mylector.fail()) 
             {
     
-                if ( muestra_simbolo != '#' || muestra_simbolo=='\n')//restriccion a comentarios con #
+                if ( muestra_simbolo != '#' || muestra_simbolo=='\n')
                 {
-                    mylector.seekg(curr_post, ifstream::beg); //se mueve la posicion de lectura referenciando el inicio
+                    mylector.seekg(curr_post, ifstream::beg);
                     
-                    if(!for_used_lines.empty() && muestra_simbolo!='\0') //terminador
+                    if(!for_used_lines.empty() && muestra_simbolo!='\0')
                     {
                         getline(mylector, st1,' ');
                         getline(mylector, st2,' ');
@@ -138,52 +149,38 @@ void lectura_archivo(string cont){
 }
 
 
-
-
-
 int main(int argc, char const *argv[])
 {
-    //recurso de datos en archivo de texto
-    string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Assignament_1/memo_1.txt";
+    //recurso de los datos contenidos en un archivo de texto.
+    string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Laboratorio_1_2025/memo_1.txt";
     
-    //llenado de memoria con datos leidos; se configura el vector<M_memory> con las instrucciones a procesar.
+    //captura de datos en vector.
     lectura_archivo(ubicacion);
 
-
+    //procesamiento de datos.
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
     cb->set_instrucciones(memoria_ocupada); // tomamos los datos a procesar
     cb->load_instruction(); // cargamos las operaciones sobre los datos
-    cb->mostrar_ciclo_basico(); // presentamos el resultado final
 
+    int respuesta_final = cb->get_alu();
 
-
-    //probador cout============
-
-
-    //========================
+    cout<<"El total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n";
 
     
-    cout<<"Gracias a Dios"<<endl;
-
+    
     //Proceso de liberacion de la memoria
-
-    for (M_memory* pm : memoria_ocupada)/**
-    * @brief entrega string concatenado de los miembros
-    * de un vector<string>dado
-    * 
-    * @return string 
-    */
+    
+    for (M_memory* pm : memoria_ocupada)
     {
-        pm=NULL;
-        delete pm;
+        pm = nullptr;
     }
-
-    cout<<to_string(memoria_ocupada.size())<<endl;
-
+    
+    memoria_ocupada.clear();
     delete cb;
     
+    //Agradecimiento infinito.
+    cout<<"Gracias a Dios"<<endl;
 
-    
     return 0;
 }
