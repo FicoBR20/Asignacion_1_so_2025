@@ -243,21 +243,6 @@ M_memory* Ciclo_basico::to_store(std::string addr){
 }
 
 
-M_memory* Ciclo_basico::to_show(std::string dir){
-
-    M_memory* mostrona;
-
-    for (M_memory* reg : info_men)
-    {
-        if (reg->get_dir_adr()==dir && reg->get_mname()!="SHW")
-        {
-            mostrona = reg;
-        }
-        
-    }
-    
-    return mostrona;
-}
 
 
 void Ciclo_basico::load_instruction(){
@@ -321,6 +306,7 @@ void Ciclo_basico::load_instruction(){
             set_icr(mm);
             pc++;
             set_un_control(mm);
+            set_mar(mm->get_dir_adr());
             set_mdr_value(mm);
             string stmem = " ";         
             stmem = mm->get_dir_adr();
@@ -329,13 +315,21 @@ void Ciclo_basico::load_instruction(){
 
             mm->set_tag1(to_string(get_acum()));
 
-            // mm->mostrar_memoria();
-
         }
         else if (info_men.at(i)->get_mname()=="SHW")
         {
-            /* code */
-            cout<<" soy show \n";
+            M_memory* mm = info_men.at(i);
+            set_mar_pc(get_pc());
+            set_mdr(mm);
+            set_icr(mm);
+            pc++;
+            set_un_control(mm);
+            set_mar(mm->get_dir_adr());
+            recep = mm->get_dir_adr();
+            mm = to_store(recep);
+
+            mm->mostrar_memoria();
+
         }
         else if (info_men.at(i)->get_mname()=="END")
         {

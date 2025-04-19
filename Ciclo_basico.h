@@ -98,15 +98,6 @@ public:
      */
     M_memory* to_store(std::string addr);
 
-    /**
-     * @brief funcion que entrega la direccion de
-     * un objeto M_memory segun instruccion SHW
-     * 
-     * @param addr 
-     * @return M_memory* 
-     */
-    M_memory* to_show(std::string addr);
-
 
 private:
     int pc;                             //contador de programas
