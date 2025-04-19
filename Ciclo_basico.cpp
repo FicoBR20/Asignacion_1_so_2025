@@ -226,6 +226,23 @@ string Ciclo_basico::print_vector(vector<string>vst){
 }
 
 
+M_memory* Ciclo_basico::to_store(std::string addr){
+
+    M_memory* comparadora;
+
+    for (M_memory* ref : info_men)
+    {
+        if (ref->get_dir_adr()==addr && ref->get_mname()=="SET")
+        {
+            comparadora = ref;
+        }
+        
+    }
+    
+    return comparadora;
+}
+
+
 
 
 void Ciclo_basico::load_instruction(){
@@ -309,15 +326,22 @@ void Ciclo_basico::load_instruction(){
             pc++;
             set_un_control(mm);
             set_mdr_value(mm);
-            cout<<"el mdr es; " + print_vector(get_mdr());
-            string stemp = " ";
+            cout<<"el mdr solitico es; " + print_vector(get_mdr()) + " \n" ;
+            cout<<" mi direccion es: " + mm->get_dir_adr() + " \n";
+            string stemp, stmem = " ";         
+            stemp = print_vector(get_mdr());  // string con el nuevo valor entero a asignarse a una posicion de memoria
+            stmem = mm->get_dir_adr();
 
+            mm = to_store(stmem);
 
-            stemp = print_vector(get_mdr());
+            mm->set_tag1(to_string(get_acum()));
 
-            mm->set_tag1(stemp);
+        
 
             mm->mostrar_memoria();
+
+            mostrar_ciclo_basico();
+
 
 
 

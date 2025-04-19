@@ -83,6 +83,17 @@ public:
 
 
 
+    /**
+     * @brief funcion que entrega la direccion de
+     * un objeto M_memory segun atributo configurado
+     * 
+     * @param addr 
+     * @return M_memory* 
+     */
+    M_memory* to_store(std::string addr);
+
+
+
 
 
 

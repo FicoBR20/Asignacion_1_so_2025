@@ -8,11 +8,11 @@
 
 using namespace std;
 
-// string contenedor = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Assignament_1/memo_1.txt";
-
+/**
+ * @brief contenedor de los registros leidos
+ * 
+ */
 std::vector<M_memory*>memoria_ocupada;
-
-
 
 
 /**
@@ -22,8 +22,6 @@ std::vector<M_memory*>memoria_ocupada;
  * @param cont 
  */
 void lectura_archivo(string cont){
-
-    // vector<string>datosLimpios;                //recolectara los datos leidos
     
     ifstream mylector(cont);                      //objeto stream de lectura
     
@@ -35,7 +33,6 @@ void lectura_archivo(string cont){
     std::string for_used_lines = "";                         //contenedor de linea leida
     
     int curr_post = 0;                                  //contenedor de posicion de lectura
-
 
 
     if (mylector.is_open())
@@ -56,21 +53,12 @@ void lectura_archivo(string cont){
                     
                     if(!for_used_lines.empty() && muestra_simbolo!='\0') //terminador
                     {
-                        /* code */
-
                         getline(mylector, st1,' ');
                         getline(mylector, st2,' ');
                         getline(mylector, st3,' ');
                         getline(mylector, st4,' ');
                         getline(mylector, st5,'\n');
-                        // datosLimpios.push_back(st1);
-                        // datosLimpios.push_back(st2);
-                        // datosLimpios.push_back(st3);
-                        // datosLimpios.push_back(st4);
-                        // datosLimpios.push_back(st5);
-                        
                         //creando objetos
-
                         if (st1 == "SET")
                         {
                             M_memory *mm;
@@ -128,9 +116,6 @@ void lectura_archivo(string cont){
                         }
                         
                         
-                            
-
-                        
                     }
                 
                     
@@ -143,27 +128,13 @@ void lectura_archivo(string cont){
     }
     mylector.close();
 
-    /**
-     * @brief se imprime el vector
-     * para verificacion del resultado
-     * 
-     */
-    // cout<<"El size del vector es; "<<datosLimpios.size()<<endl;
-    
-    // for(string x : datosLimpios){
-    //     cout<<"El string es :\n"<<x<<" \ny el size del vector es; "
-    //     <<datosLimpios.size()<<endl;
+    //verificacion
+
+    // for (int i = 0; i < memoria_ocupada.size(); i++)
+    // {
+    //     memoria_ocupada.at(i)->mostrar_memoria();
     // }
-
-    for (int i = 0; i < memoria_ocupada.size(); i++)
-    {
-        memoria_ocupada.at(i)->mostrar_memoria();
-    }
-    
-    
-
-    // return datosLimpios;
-  
+      
 }
 
 
