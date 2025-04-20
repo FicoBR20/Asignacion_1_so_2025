@@ -70,5 +70,5 @@ string M_memory::get_tag3(){
  * 
  */
 void M_memory::mostrar_memoria(){
-    cout<<"Contenido en la posicion de memoria: " + get_mname() + " " + get_dir_adr() + " " + get_tag1() + " " + get_tag2() + " " + get_tag3() + "  \n";
+    cout<<"La posicion de memoria " + get_dir_adr()+ " es: "+ get_mname() + " " + get_dir_adr() + " " + get_tag1() + " " + get_tag2() + " " + get_tag3() + "  \n";
 }
