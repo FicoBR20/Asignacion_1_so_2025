@@ -267,8 +267,8 @@ M_memory* Ciclo_basico::to_store(std::string addr){
 
 void Ciclo_basico::load_instruction(){
 
-    int vlr_1, aux2, aux3;
-    string recep, ayud, stx_1, stx_2, stx_3 = "";
+    int vlr_1, vlr_2, vlr_3=0;
+    string recep, stx_4, stx_1, stx_2, stx_3 = "";
 
     set_pc(0);
 
@@ -291,8 +291,8 @@ void Ciclo_basico::load_instruction(){
             set_mdr_value(mm);
             
             recep = mm->get_dir_adr();
-            ayud = get_Set_value(mm);
-            vlr_1 = stoi(ayud);
+            stx_4 = get_Set_value(mm);
+            vlr_1 = stoi(stx_4);
             
             set_acum(vlr_1);
 
@@ -316,17 +316,19 @@ void Ciclo_basico::load_instruction(){
 
                 stx_1 = mm->get_dir_adr();
                 mm = to_store(stx_1);
-                ayud = mm->get_tag1();
+                stx_4 = mm->get_tag1();
 
-                vlr_1 = stoi(ayud);
+                vlr_1 = stoi(stx_4);
                 
                 set_acum(vlr_1); 
                 set_alu(get_alu() + get_acum());
                 set_acum(get_alu());
             }
-            if (mm->get_tag1()!="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL"){
+            else if (mm->get_tag1()!="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL"){
 
-                //  ADD D1 D3 NULL NULL
+                //  ADD D2 D3 NULL NULL
+
+                cout<<"verificacion de ingreso " + mm->get_dir_adr() + " \n";
 
                 set_mar_pc(get_pc());
                 set_mdr(mm);
@@ -344,19 +346,25 @@ void Ciclo_basico::load_instruction(){
 
                 stx_1 = tt->get_dir_adr(); // D1 PRIMER CAMPO
                 tt = to_store(stx_1);// SET D1
-                ayud = tt->get_tag1();// GET VALUE D1  
-                vlr_1 = stoi(ayud); //CONVERT TO INT 1A FASE
-
-
-
+                cout<<"primer campo es: " + stx_1 + " \n";
+                cout<<"el contenido es: " + tt->get_tag1() + " \n";
+                stx_3 = tt->get_tag1();// GET VALUE D1  
+                vlr_1 = stoi(stx_3); //CONVERT TO INT 1A FASE
+                cout<<"el valor en tt : " + to_string(vlr_1) + " \n";
                 
-                // mm=to_store(mm->get_tag1());
+                stx_2 = mm->get_tag1();
+                mm = to_store(stx_2);
+                cout<<"primer campo es: " + stx_2 + " \n";
+                cout<<"el contenido es: " + mm->get_tag1() + " \n";
+                stx_4= mm->get_tag1();
+                vlr_2 = stoi(stx_4);
+                cout<<"el valor en mm : " + to_string(vlr_2) + " \n";
 
-                // cout<<"chequeo nuevo \n";
+                vlr_3 = vlr_1 + vlr_2;
 
-                // mm->mostrar_memoria();
+                cout<<"valor 3 es ; " + to_string(vlr_3) + "\n";
                 
-                set_acum(vlr_1); 
+                set_acum(vlr_3); 
                 set_alu(get_alu() + get_acum());
                 set_acum(get_alu());
 
