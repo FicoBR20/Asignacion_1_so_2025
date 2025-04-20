@@ -14,11 +14,25 @@
 #include <string>
 #include <vector>
 #include<fstream>
+#include <cstdlib>
+#include <ctime>
 
 
-#include "Ciclo_basico.h"
+#include "Motor.h"
 
 using namespace std;
+
+/**
+ * @brief inicia gestor random
+ * 
+ */
+void inicializar_ran(){
+    srand(time(NULL));
+}
+
+vector<std::string> the_instructions {"SET", "LDR", "ADD", "INC", "DEC", "STR", "SHW", "PAUSE", "END"};
+
+vector<std::string> the_aval_address {"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"};
 
 /**
  * @brief contenedor de los registros leidos
@@ -151,6 +165,11 @@ void lectura_archivo(string cont){
 
 int main(int argc, char const *argv[])
 {
+    inicializar_ran();
+
+    
+
+
     //recurso de los datos contenidos en un archivo de texto.
     string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Laboratorio_1_2025/memo_1.txt";
     
@@ -168,7 +187,6 @@ int main(int argc, char const *argv[])
     cout<<"El total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n";
 
     
-    
     //Proceso de liberacion de la memoria
     
     for (M_memory* pm : memoria_ocupada)
@@ -181,6 +199,12 @@ int main(int argc, char const *argv[])
     
     //Agradecimiento infinito.
     cout<<"Gracias a Dios"<<endl;
+    
+    
+
+    
+    
+
 
     return 0;
 }

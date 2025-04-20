@@ -115,7 +115,16 @@ void Ciclo_basico::set_mdr(M_memory* me){
     string dato1 = me->get_mname();
     mdr.push_back(dato1);
     string dato2 = me->get_dir_adr();
-    mdr.push_back(dato2);                 
+    mdr.push_back(dato2);
+
+    // lo nuevo
+
+    string dato3 = me->get_tag1();
+    mdr.push_back(dato3);
+    string dato4 = me->get_tag2();
+    mdr.push_back(dato4);
+    string dato5 = me->get_tag3(); 
+    mdr.push_back(dato5);               
 
 }
 
@@ -127,11 +136,13 @@ void Ciclo_basico::set_mdr(M_memory* me){
  */
 void Ciclo_basico::set_mdr_value(M_memory* vm){
 
-    string st_aux, recibe = "";
-    recibe = vm->get_dir_adr();
-    st_aux = get_Set_value(vm);
+    string st_aux1, st_aux2, st_aux3  = "";
+    st_aux1 = get_Set_value(vm);
     mdr.clear();
-    mdr.push_back(st_aux);
+    mdr.push_back(st_aux1);
+
+    // LO NUEVO
+
 
 }
 
@@ -200,9 +211,9 @@ string Ciclo_basico::get_Set_value(M_memory* dm){
     for (M_memory* mpt : info_men)
     {
         recet = mpt->get_dir_adr();
-        auxil = mpt->get_tag1();
+        auxil = mpt->get_mname();
 
-        if (recet==proof && auxil != "NULL")
+        if (recet==proof && auxil == "SET")
         {
             value = mpt->get_tag1();
         }
@@ -212,13 +223,22 @@ string Ciclo_basico::get_Set_value(M_memory* dm){
     return value;
 }
 
+
+
 // funciones de proceso.
 
 string Ciclo_basico::print_vector(vector<string>vst){
     string rect = "";
+    int cont = 0;
     for (string ste : vst)
     {
         rect = rect + " " + ste;
+        cont ++;
+        if (cont>1)
+        {
+            break;
+        }
+        
     }
 
     return rect;
@@ -247,8 +267,8 @@ M_memory* Ciclo_basico::to_store(std::string addr){
 
 void Ciclo_basico::load_instruction(){
 
-    int auxx;
-    string recep, ayud = "";
+    int vlr_1, aux2, aux3;
+    string recep, ayud, stx_1, stx_2, stx_3 = "";
 
     set_pc(0);
 
@@ -272,30 +292,77 @@ void Ciclo_basico::load_instruction(){
             
             recep = mm->get_dir_adr();
             ayud = get_Set_value(mm);
-            auxx = stoi(ayud);
+            vlr_1 = stoi(ayud);
             
-            set_acum(auxx);
+            set_acum(vlr_1);
 
         }
         else if (info_men.at(i)->get_mname()=="ADD")
         {
             M_memory* mm = info_men.at(i);
-            set_mar_pc(get_pc());
-            set_mdr(mm);
-            set_icr(mm);
-            pc++;
-            set_un_control(mm);
-            set_alu(get_acum());
-            set_mar(mm->get_dir_adr());
-            set_mdr_value(mm);
+            
+            if (mm->get_tag1()=="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL")
+            {
+                /* code */
+                
+                set_mar_pc(get_pc());
+                set_mdr(mm);
+                set_icr(mm);
+                pc++;
+                set_un_control(mm);
+                set_alu(get_acum());
+                set_mar(mm->get_dir_adr());
+                set_mdr_value(mm);
 
-            recep = mm->get_dir_adr();
-            ayud = get_Set_value(mm);
-            auxx = stoi(ayud);
+                stx_1 = mm->get_dir_adr();
+                mm = to_store(stx_1);
+                ayud = mm->get_tag1();
 
-            set_acum(auxx); 
-            set_alu(get_alu() + get_acum());
-            set_acum(get_alu());
+                vlr_1 = stoi(ayud);
+                
+                set_acum(vlr_1); 
+                set_alu(get_alu() + get_acum());
+                set_acum(get_alu());
+            }
+            if (mm->get_tag1()!="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL"){
+
+                //  ADD D1 D3 NULL NULL
+
+                set_mar_pc(get_pc());
+                set_mdr(mm);
+                set_icr(mm);
+                pc++;
+                set_un_control(mm);
+                set_alu(get_acum());//vale sigue siempre
+                set_mar(mm->get_dir_adr());//
+                set_mdr_value(mm);//mdr ahora es vector con un solo valor del string 
+
+                //NUEVO CON STORE
+
+                M_memory* tt = new M_memory();
+                tt=mm;
+
+                stx_1 = tt->get_dir_adr(); // D1 PRIMER CAMPO
+                tt = to_store(stx_1);// SET D1
+                ayud = tt->get_tag1();// GET VALUE D1  
+                vlr_1 = stoi(ayud); //CONVERT TO INT 1A FASE
+
+
+
+                
+                // mm=to_store(mm->get_tag1());
+
+                // cout<<"chequeo nuevo \n";
+
+                // mm->mostrar_memoria();
+                
+                set_acum(vlr_1); 
+                set_alu(get_alu() + get_acum());
+                set_acum(get_alu());
+
+
+            }
+
         
         }
         else if (info_men.at(i)->get_mname()=="STR")
@@ -333,6 +400,7 @@ void Ciclo_basico::load_instruction(){
         }
         else if (info_men.at(i)->get_mname()=="END")
         {
+            pc++;
             mostrar_ciclo_basico();
         }
         
