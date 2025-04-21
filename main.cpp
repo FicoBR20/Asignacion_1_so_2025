@@ -153,25 +153,15 @@ void lectura_archivo(string cont){
     }
     mylector.close();
 
-    //verificacion
-
-    // for (int i = 0; i < memoria_ocupada.size(); i++)
-    // {
-    //     memoria_ocupada.at(i)->mostrar_memoria();
-    // }
       
 }
 
+void iniciacion(string cal){
 
-int main(int argc, char const *argv[])
-{
     inicializar_ran();
 
-    
-
-
     //recurso de los datos contenidos en un archivo de texto.
-    string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Laboratorio_1_2025/memo_6_PAUSE.txt";
+    string ubicacion = cal;
     
     //captura de datos en vector.
     lectura_archivo(ubicacion);
@@ -179,14 +169,42 @@ int main(int argc, char const *argv[])
     //procesamiento de datos.
     Ciclo_basico* cb;
     cb=new Ciclo_basico();
-    cb->set_instrucciones(memoria_ocupada); // tomamos los datos a procesar
-    cb->load_instruction(); // cargamos las operaciones sobre los datos
+    cb->set_instrucciones(memoria_ocupada);         // tomamos los datos a procesar
+    cb->load_instruction();                         // cargamos las operaciones sobre los datos
 
-    int respuesta_final = cb->get_alu();
+    int respuesta_final = cb->get_alu();            // total almacenado en la alu
 
-    cout<<"El total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n";
+    cout<<"\nEl total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n\n";
+
+    delete cb;
+
 
     
+
+}
+
+
+int main(int argc, char const *argv[])
+{
+    string started = "";
+
+    if (argc<2)
+    {
+        cout<<"\n...Debe escribir el nombre completo (incluye la extension .txt) del archivo de texto que tiene los datos\n ....escribalo enseguida del ejecutable dejando un espacio entre ellos.\n\nGracias\n\n";
+
+        return 0;
+    }
+    else if (argc==2)
+    {
+        started = argv[1];
+        cout<<"\n\n...!!! Advertencia !!! usted ingreso " + started + " ......si el programa NO INICIA.... por favor .....VERIFIQUE BIEN\n\n"<<endl;
+    }
+    
+    
+
+
+    iniciacion(started);
+
     //Proceso de liberacion de la memoria
     
     for (M_memory* pm : memoria_ocupada)
@@ -195,10 +213,9 @@ int main(int argc, char const *argv[])
     }
     
     memoria_ocupada.clear();
-    delete cb;
     
     //Agradecimiento infinito.
-    cout<<"Gracias a Dios"<<endl;
+    cout<<"Gracias a Dios\n"<<endl;
     
     
 

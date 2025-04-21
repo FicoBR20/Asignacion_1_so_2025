@@ -199,7 +199,7 @@ std::vector<string> Ciclo_basico::get_un_control(){
 
 
 void Ciclo_basico::mostrar_ciclo_basico(){
-    cout<<"Ciclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " \n";
+    cout<<"\nCiclo basico:  PC: " + to_string(get_pc()) + "   MAR: " + get_mar() + "   ACUM: " + to_string(get_acum()) + "   ALU: " + to_string(get_alu()) + "   ICR:" + print_vector(icr) + "   MDR:" + print_vector(mdr) + "   UNIDAD DE CONTROL:" + print_vector(un_control) + " \n";
 }
 
 string Ciclo_basico::get_Set_value(M_memory* dm){   
@@ -225,7 +225,20 @@ string Ciclo_basico::get_Set_value(M_memory* dm){
 
 
 
-// funciones de proceso.
+
+/**
+ * @brief funcion que genera una pausa y solicita
+ * ingresar enter para continuar con la ejecucion
+ * del programa.
+ * 
+ */
+void Ciclo_basico::myPause()
+{
+	std::cout << "\n......PROCESO PAUSADO....Por favor presione ENTER para continuar...\n\n"; 
+	std::cin.clear();
+	std::cin.sync();
+	std::cin.get();
+}
 
 string Ciclo_basico::print_vector(vector<string>vst){
     string rect = "";
@@ -276,12 +289,31 @@ vector<M_memory*> Ciclo_basico::to_pause(){
         
     }
 
-    //prueba pirata
+    string encabezado = "\nInformacion del estado de la memoria:\n\n";
+    string stposc = "Posicion [ ";
+    string tterm = " ] ";
+    string ott = "[ ";
+
+    stringstream stt;
 
     for (M_memory* pp : losSets)
     {
-        cout<<"La memoria es: " + pp->get_dir_adr() + " El valor actualizado es: " + pp->get_tag1() + " \n";
+        stt<<stposc;
+        string tempo = pp->get_dir_adr();
+        stt<<tempo;
+        stt<<tterm;
+        stt<<ott;
+        string ooo = pp->get_tag1();
+        stt<<ooo;
+        stt<<tterm;
     }
+    encabezado = encabezado + stt.str();
+
+    cout<<encabezado<<endl;
+
+    // cout<<"Informacion del estado de la memoria usada\nDireccion de memoria [ " + pp->get_dir_adr() + " ] almacena [ " + pp->get_tag1() + " ] \n";
+    
+    myPause();
     
 
     

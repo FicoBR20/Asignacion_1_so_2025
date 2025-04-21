@@ -75,7 +75,11 @@ public:
      * @param pm // objeto con la direccion de memoria
      * @return string 
      */
-    string get_Set_value(M_memory* pm);          
+    string get_Set_value(M_memory* pm);
+    
+    
+    void myPause();
+
 
 
 
