@@ -171,7 +171,7 @@ int main(int argc, char const *argv[])
 
 
     //recurso de los datos contenidos en un archivo de texto.
-    string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Laboratorio_1_2025/memo_1.txt";
+    string ubicacion = "/home/fede/Documents/univalle_homeworks/s2025-SistemasOPerativos/Laboratorio_1_2025/memo_6_PAUSE.txt";
     
     //captura de datos en vector.
     lectura_archivo(ubicacion);

@@ -263,6 +263,30 @@ M_memory* Ciclo_basico::to_store(std::string addr){
 }
 
 
+vector<M_memory*> Ciclo_basico::to_pause(){
+
+    vector<M_memory*>losSets;
+
+    for (M_memory* ref : info_men)
+    {
+        if (ref->get_mname()=="SET")
+        {
+            losSets.push_back(ref);
+        }
+        
+    }
+
+    //prueba pirata
+
+    for (M_memory* pp : losSets)
+    {
+        cout<<"La memoria es: " + pp->get_dir_adr() + " El valor actualizado es: " + pp->get_tag1() + " \n";
+    }
+    
+
+    
+    return losSets;
+}
 
 
 void Ciclo_basico::load_instruction(){
@@ -303,7 +327,6 @@ void Ciclo_basico::load_instruction(){
             
             if (mm->get_tag1()=="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL")
             {
-                /* code */
                 
                 set_mar_pc(get_pc());
                 set_mdr(mm);
@@ -326,44 +349,31 @@ void Ciclo_basico::load_instruction(){
             }
             else if (mm->get_tag1()!="NULL" && mm->get_tag2()=="NULL" && mm->get_tag3()=="NULL"){
 
-                //  ADD D2 D3 NULL NULL
-
-                cout<<"verificacion de ingreso " + mm->get_dir_adr() + " \n";
-
                 set_mar_pc(get_pc());
                 set_mdr(mm);
                 set_icr(mm);
                 pc++;
                 set_un_control(mm);
-                set_alu(get_acum());//vale sigue siempre
-                set_mar(mm->get_dir_adr());//
-                set_mdr_value(mm);//mdr ahora es vector con un solo valor del string 
+                set_alu(get_acum());
+                set_mar(mm->get_dir_adr());
+                set_mdr_value(mm);
 
-                //NUEVO CON STORE
 
                 M_memory* tt = new M_memory();
                 tt=mm;
 
-                stx_1 = tt->get_dir_adr(); // D1 PRIMER CAMPO
-                tt = to_store(stx_1);// SET D1
-                cout<<"primer campo es: " + stx_1 + " \n";
-                cout<<"el contenido es: " + tt->get_tag1() + " \n";
-                stx_3 = tt->get_tag1();// GET VALUE D1  
-                vlr_1 = stoi(stx_3); //CONVERT TO INT 1A FASE
-                cout<<"el valor en tt : " + to_string(vlr_1) + " \n";
+                stx_1 = tt->get_dir_adr();
+                tt = to_store(stx_1);
+                stx_3 = tt->get_tag1();
+                vlr_1 = stoi(stx_3);
                 
                 stx_2 = mm->get_tag1();
                 mm = to_store(stx_2);
-                cout<<"primer campo es: " + stx_2 + " \n";
-                cout<<"el contenido es: " + mm->get_tag1() + " \n";
                 stx_4= mm->get_tag1();
                 vlr_2 = stoi(stx_4);
-                cout<<"el valor en mm : " + to_string(vlr_2) + " \n";
 
                 vlr_3 = vlr_1 + vlr_2;
 
-                cout<<"valor 3 es ; " + to_string(vlr_3) + "\n";
-                
                 set_acum(vlr_3); 
                 set_alu(get_alu() + get_acum());
                 set_acum(get_alu());
@@ -376,33 +386,22 @@ void Ciclo_basico::load_instruction(){
 
             else if (mm->get_tag1()!="NULL" && mm->get_tag2()!="NULL" && mm->get_tag3()=="NULL"){
 
-                //  ADD D2 D3 NULL NULL
-
-                cout<<"verificacion de ingreso ULTIMA " + mm->get_tag2() + " \n";
-
                 set_mar_pc(get_pc());
                 set_mdr(mm);
                 set_icr(mm);
                 pc++;
                 set_un_control(mm);
-                set_alu(get_acum());//vale sigue siempre
-                set_mar(mm->get_dir_adr());//
-                set_mdr_value(mm);//mdr ahora es vector con un solo valor del string 
-
-                //NUEVO CON STORE
+                set_alu(get_acum());
+                set_mar(mm->get_dir_adr());
+                set_mdr_value(mm);
 
                 M_memory* tt = new M_memory();
                 tt=mm;
                 
-                stx_1 = tt->get_dir_adr(); // D1 PRIMER CAMPO
-                tt = to_store(stx_1);// SET D1
-                cout<<"primer campo es: " + stx_1 + " \n";
-                cout<<"el contenido es: " + tt->get_tag1() + " \n";
-                stx_3 = tt->get_tag1();// GET VALUE D1  
-                vlr_1 = stoi(stx_3); //CONVERT TO INT 1A FASE
-                cout<<"el valor en tt : " + to_string(vlr_1) + " \n";
-                
-                
+                stx_1 = tt->get_dir_adr();
+                tt = to_store(stx_1);
+                stx_3 = tt->get_tag1();
+                vlr_1 = stoi(stx_3);
                 
                 M_memory* rr = new M_memory();
                 rr=mm;
@@ -410,11 +409,8 @@ void Ciclo_basico::load_instruction(){
                 
                 stx_2 = rr->get_tag1();
                 rr = to_store(stx_2);
-                cout<<"primer campo es: " + stx_2 + " \n";
-                cout<<"el contenido es: " + rr->get_tag1() + " \n";
                 stx_4= rr->get_tag1();
                 vlr_2 = stoi(stx_4);
-                cout<<"el valor en mm : " + to_string(vlr_2) + " \n";
 
                 vlr_3 = vlr_1 + vlr_2;
 
@@ -422,16 +418,20 @@ void Ciclo_basico::load_instruction(){
                 mm = to_store(stx_5);
                 mm->set_tag1(to_string(vlr_3));
 
-                mm->mostrar_memoria();
+                mm->mostrar_memoria(); // se verifica nuevo valor
 
-                cout<<"valor 3 es ; " + to_string(vlr_3) + "\n";   // aqui vamos Dios...Bendito seas forever ever.
                 
                 set_acum(vlr_3); 
                 set_alu(get_alu() + get_acum());
                 set_acum(get_alu());
 
+
+
                 tt = nullptr;
                 delete tt;
+
+                rr=nullptr;
+                delete rr;
 
 
 
@@ -473,6 +473,80 @@ void Ciclo_basico::load_instruction(){
             mm->mostrar_memoria();
 
         }
+        else if (info_men.at(i)->get_mname()=="INC")
+        {
+            M_memory* mm = info_men.at(i);
+                        
+            set_mar_pc(get_pc());
+            set_mdr(mm);
+            set_icr(mm);
+            pc++;
+            set_un_control(mm);
+            set_alu(get_acum());
+            set_mar(mm->get_dir_adr());
+            set_mdr_value(mm);
+
+            stx_1 = mm->get_dir_adr();
+            mm = to_store(stx_1);
+            stx_4 = mm->get_tag1();
+
+            vlr_1 = stoi(stx_4) + 1;
+
+            mm->set_tag1(to_string(vlr_1));
+
+            mm->mostrar_memoria();// se verifica nuevo valor
+            
+    
+
+        }
+        else if (info_men.at(i)->get_mname()=="DEC")
+        {
+            M_memory* mm = info_men.at(i);
+                        
+            set_mar_pc(get_pc());
+            set_mdr(mm);
+            set_icr(mm);
+            pc++;
+            set_un_control(mm);
+            set_alu(get_acum());
+            set_mar(mm->get_dir_adr());
+            set_mdr_value(mm);
+
+            stx_1 = mm->get_dir_adr();
+            mm = to_store(stx_1);
+            stx_4 = mm->get_tag1();
+
+            vlr_1 = stoi(stx_4) - 1;
+
+            mm->set_tag1(to_string(vlr_1));
+
+            mm->mostrar_memoria();// se verifica nuevo valor
+            
+
+        }
+        else if (info_men.at(i)->get_mname()=="PAUSE")
+        {
+            M_memory* mm = info_men.at(i);
+                        
+            set_mar_pc(get_pc());
+            set_mdr(mm);
+            set_icr(mm);
+            pc++;
+            set_un_control(mm);
+
+            to_pause();
+            
+
+        }
+
+
+
+
+
+
+
+
+
         else if (info_men.at(i)->get_mname()=="END")
         {
             pc++;

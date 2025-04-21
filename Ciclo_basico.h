@@ -99,6 +99,25 @@ public:
     M_memory* to_store(std::string addr);
 
 
+
+
+
+    /**
+     * @brief funcion que entrega un arreglo con las direcciones
+     * de memoria actualizadas (SET)
+     * 
+     * @return M_memory* 
+     */
+    std::vector<M_memory*>to_pause();
+
+
+
+
+
+
+
+
+
 private:
     int pc;                             //contador de programas
     std::string mar;                    //registro de direcciones de memoria
