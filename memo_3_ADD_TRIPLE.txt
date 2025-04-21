@@ -1,0 +1,17 @@
+# Archivo modificado sobre el original para probar la instruccion ADD con doble ingreso
+# La instruccion en el renglon 10 de este documento hace que el total en el alu sea de 96, pero ademas,
+# la posicion de memoria D8 sea actualizada a un nuevo valor.
+SET D5 12 NULL NULL
+SET D2 23 NULL NULL
+SET D8 3 NULL NULL
+SET D3 5 NULL NULL
+LDR D2 NULL NULL NULL
+ADD D5 NULL NULL NULL
+ADD D8 NULL NULL NULL
+ADD D5 D2 D8 NULL
+STR D3 NULL NULL NULL
+LDR D3 NULL NULL NULL
+ADD D2 NULL NULL NULL
+STR D2 NULL NULL NULL
+SHW D2 NULL NULL NULL
+END NULL NULL NULL
