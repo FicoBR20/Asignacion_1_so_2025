@@ -18,7 +18,7 @@
 #include <ctime>
 
 
-#include "Motor.h"
+#include "Ciclo_basico.h"
 
 using namespace std;
 
@@ -158,26 +158,37 @@ void lectura_archivo(string cont){
 
 void iniciacion(string cal){
 
+    
     inicializar_ran();
-
+    
     //recurso de los datos contenidos en un archivo de texto.
     string ubicacion = cal;
     
     //captura de datos en vector.
     lectura_archivo(ubicacion);
-
-    //procesamiento de datos.
-    Ciclo_basico* cb;
-    cb=new Ciclo_basico();
-    cb->set_instrucciones(memoria_ocupada);         // tomamos los datos a procesar
-    cb->load_instruction();                         // cargamos las operaciones sobre los datos
-
-    int respuesta_final = cb->get_alu();            // total almacenado en la alu
-
-    cout<<"\nEl total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n\n";
-
-    delete cb;
-
+    
+    if (memoria_ocupada.size()>0)
+    {
+        cout<< "\x1B[32m"<<"\n\n================================ B I E N V E N I D O ================================================\n"<<endl;
+        cout<<"=========================== PROGRAMA INICIADO EXITOSAMENTE ==========================================\n\n\033[0m";
+        
+        
+        //procesamiento de datos.
+        Ciclo_basico* cb;
+        cb=new Ciclo_basico();
+        cb->set_instrucciones(memoria_ocupada);         // tomamos los datos a procesar
+        cb->load_instruction();                         // cargamos las operaciones sobre los datos
+        
+        int respuesta_final = cb->get_alu();            // total almacenado en la alu
+        
+        cout<<"\nEl total almacenado en la unidad logica es: " + to_string(respuesta_final) + " \n\n";
+        
+        delete cb;
+        
+    }
+    else{
+        std::cout << "\033[1;41;37m\nAdvertencia: Favor verifique los datos ingresados.\033[0m\n"<<endl;
+    }
 
     
 
@@ -190,14 +201,13 @@ int main(int argc, char const *argv[])
 
     if (argc<2)
     {
-        cout<<"\n...Debe escribir el nombre completo (incluye la extension .txt) del archivo de texto que tiene los datos\n ....escribalo enseguida del ejecutable dejando un espacio entre ellos.\n\nGracias\n\n";
-
+        std::cout << "\033[1;41;37m\nAVISO: Se debe ingresar como parametro el nombre del archivo de texto que contiene los datos a procesar\033[0m\n"<<endl;
         return 0;
     }
     else if (argc==2)
     {
         started = argv[1];
-        cout<<"\n\n...!!! Advertencia !!! usted ingreso " + started + " ......si el programa NO INICIA.... por favor .....VERIFIQUE BIEN\n\n"<<endl;
+        cout<<"\nAVISO: El dato que usted ingreso es: " + started <<endl;
     }
     
     
@@ -215,7 +225,9 @@ int main(int argc, char const *argv[])
     memoria_ocupada.clear();
     
     //Agradecimiento infinito.
-    cout<<"Gracias a Dios\n"<<endl;
+    // cout<<"Gracias a Dios\n"<<endl;
+    std::cout << "\033[1;34mGracias a Dios\n\n\033[0m" << std::endl;
+    
     
     
 

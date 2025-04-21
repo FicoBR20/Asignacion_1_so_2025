@@ -234,7 +234,7 @@ string Ciclo_basico::get_Set_value(M_memory* dm){
  */
 void Ciclo_basico::myPause()
 {
-	std::cout << "\n......PROCESO PAUSADO....Por favor presione ENTER para continuar...\n\n"; 
+	std::cout << "\033[1;41;37m\n ...proceso en pausa.....Favor presione ENTER para continuar...gracias.\033[0m" <<endl;
 	std::cin.clear();
 	std::cin.sync();
 	std::cin.get();
@@ -310,8 +310,6 @@ vector<M_memory*> Ciclo_basico::to_pause(){
     encabezado = encabezado + stt.str();
 
     cout<<encabezado<<endl;
-
-    // cout<<"Informacion del estado de la memoria usada\nDireccion de memoria [ " + pp->get_dir_adr() + " ] almacena [ " + pp->get_tag1() + " ] \n";
     
     myPause();
     
@@ -450,7 +448,7 @@ void Ciclo_basico::load_instruction(){
                 mm = to_store(stx_5);
                 mm->set_tag1(to_string(vlr_3));
 
-                mm->mostrar_memoria(); // se verifica nuevo valor
+                // mm->mostrar_memoria(); // se verifica nuevo valor
 
                 
                 set_acum(vlr_3); 
@@ -526,7 +524,7 @@ void Ciclo_basico::load_instruction(){
 
             mm->set_tag1(to_string(vlr_1));
 
-            mm->mostrar_memoria();// se verifica nuevo valor
+            // mm->mostrar_memoria();// se verifica nuevo valor
             
     
 
@@ -552,19 +550,17 @@ void Ciclo_basico::load_instruction(){
 
             mm->set_tag1(to_string(vlr_1));
 
-            mm->mostrar_memoria();// se verifica nuevo valor
+            // mm->mostrar_memoria();// se verifica nuevo valor
             
 
         }
         else if (info_men.at(i)->get_mname()=="PAUSE")
         {
-            M_memory* mm = info_men.at(i);
-                        
-            set_mar_pc(get_pc());
-            set_mdr(mm);
-            set_icr(mm);
+            M_memory* mm = info_men.at(i-1);
             pc++;
-            set_un_control(mm);
+
+            mm->mostrar_memoria();
+            mostrar_ciclo_basico();
 
             to_pause();
             
