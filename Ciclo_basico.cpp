@@ -447,23 +447,16 @@ void Ciclo_basico::load_instruction(){
                 stx_5 = mm->get_tag2();
                 mm = to_store(stx_5);
                 mm->set_tag1(to_string(vlr_3));
-
-                // mm->mostrar_memoria(); // se verifica nuevo valor
-
                 
                 set_acum(vlr_3); 
                 set_alu(get_alu() + get_acum());
                 set_acum(get_alu());
-
-
 
                 tt = nullptr;
                 delete tt;
 
                 rr=nullptr;
                 delete rr;
-
-
 
             }
 
@@ -524,10 +517,6 @@ void Ciclo_basico::load_instruction(){
 
             mm->set_tag1(to_string(vlr_1));
 
-            // mm->mostrar_memoria();// se verifica nuevo valor
-            
-    
-
         }
         else if (info_men.at(i)->get_mname()=="DEC")
         {
@@ -548,10 +537,7 @@ void Ciclo_basico::load_instruction(){
 
             vlr_1 = stoi(stx_4) - 1;
 
-            mm->set_tag1(to_string(vlr_1));
-
-            // mm->mostrar_memoria();// se verifica nuevo valor
-            
+            mm->set_tag1(to_string(vlr_1));            
 
         }
         else if (info_men.at(i)->get_mname()=="PAUSE")
@@ -566,26 +552,14 @@ void Ciclo_basico::load_instruction(){
             
 
         }
-
-
-
-
-
-
-
-
-
         else if (info_men.at(i)->get_mname()=="END")
         {
             pc++;
             mostrar_ciclo_basico();
         }
         
-        
-        
     }
     
-
     
 }
 

@@ -201,7 +201,7 @@ int main(int argc, char const *argv[])
 
     if (argc<2)
     {
-        std::cout << "\033[1;41;37m\nAVISO: Se debe ingresar como parametro el nombre del archivo de texto que contiene los datos a procesar\033[0m\n"<<endl;
+        std::cout << "\033[1;41;37m\nAVISO: Favor ingresar como parametro la direccion del archivo de texto.\033[0m\n"<<endl;
         return 0;
     }
     else if (argc==2)
